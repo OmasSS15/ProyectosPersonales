@@ -32,9 +32,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             </div>
             <div class="card-body">
-                <form action="<?php echo base_url('archivero/store'); ?>" method="post" enctype="multipart/form-data" class="row g-3">
+                <form action="<?php echo base_url('archivero/update/') . $file->id; ?>" method="post" enctype="multipart/form-data" class="row g-3">
                     <div class="col-md-6">
-                        <label for="name" class="form-label">Nombre del Archivo</label>
+                        <label for="name" class="form-label">Asunto</label>
                         <input type="text" class="form-control" id="name" name="name" value="<?php echo $file->name; ?>"placeholder="Ingresa un nombre..." required>
                     </div>
 
@@ -67,19 +67,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     
                     <div class="col-md-6">
-                        <label for="status" class="form-label">Estado</label>
+                        <label for="status" class="form-label">Actualizar Estado</label>
                         <select name="status" id="status" class="form-select" required>
                             <option value="" selected disabled>Seleccionar</option>
-                            <option value="2" <?= $file->status == '2' ? 'selected' : '' ?>>En Revisión</option>
-                            <option value="1" <?= $file->status == '1' ? 'selected' : '' ?>>Aprobado</option>
-                            <option value="0" <?= $file->status == '0' ? 'selected' : '' ?>>Rechazado</option>
+                            <option value="2" <?= $file->status == '2' ? 'selected' : '' ?>>Pendiente</option>
+                            <option value="1" <?= $file->status == '1' ? 'selected' : '' ?>>Verificado</option>
+                            <option value="0" <?= $file->status == '0' ? 'selected' : '' ?>>Inválido</option>
                         </select>
                     </div>
                     
 
                     <div class="col-md-6">
-                        <label for="file" class="form-label">Seleccionar Archivo</label>
-                        <input type="file" class="form-control" id="file" name="file" required>
+                        <label for="file" class="form-label">Archivo Actual: 
+                            <a href="<?= base_url('uploads/' . $file->file) ?>" target="_blank">
+                                <?= $file->file ?>
+                            </a>
+                        </label>
+                        <input type="file" class="form-control" id="file" name="file">
                         <small class="form-text text-muted d-block mt-1">
                             <i class='bx bx-info-circle'></i>
                             Archivos permitidos: <strong>PDF, TXT, Excel</strong>. Tamaño máximo: <strong>10 MB</strong>.
@@ -88,7 +92,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     <div class="col-12">
                         <button type="submit" class="btn btn-modal d-flex align-items-center ms-auto">
-                            <i class='bx bxs-send fs-5 me-1'></i> Subir Archivo
+                            <i class='bx bxs-send fs-5 me-1'></i> Actualizar Archivo
                         </button>
                     </div>
                 </form>

@@ -9,6 +9,7 @@ class Archivero extends CI_Controller {
 		$this->load->model('archivero_model');
 		$this->load->model('clasificacion_model');
 		$this->load->model('sucursal_model');
+		date_default_timezone_set('America/Merida');
 	}
 
 	public function index()
@@ -48,10 +49,13 @@ class Archivero extends CI_Controller {
 		// $config['allowed_types'] = 'pdf|txt|xlsx'; // archivos permitidos
 		// $config['max_size'] = 10240; // tamaño maximo del archivo
 
+		$new_name = date('YmdHis');
+
 		$config = [
 			'upload_path' => './uploads/', // ruta para guardar los archivos
 			'allowed_types' => 'pdf|txt|xlsx', // archivos permitidos
-			'max_size' => 10240
+			'max_size' => 10240,
+			'file_name' => $new_name 
 		];
 
 		$this->load->library('upload', $config); // libreria para subir archivos
@@ -125,37 +129,45 @@ class Archivero extends CI_Controller {
 
 		$this->load->library('upload', $config); // libreria para subir archivos
 
+		$data = []; // Inicializamos por si no se sube archivo
 
-		if (!$this->upload->do_upload('file')) { // mostrar error si el archivo es false
-			// $error = $this->upload->display_errors();
-			// $this->upload->display_errors();
+		$fileData = [
+			'name' => $this->input->post('name'),
+			'iduser' => 1,
+			'idclassification' => $this->input->post('clasificacion_id'),
+			'idsucursal' => $this->input->post('sucursal_id'),
+			'status' => $this->input->post('status'),
 
-			$this->session->set_flashdata('errors', 'Ocurrió un error al subir el archivo. Verifica que el archivo cumpla con todos los requisitos.');
+		];
 
-			// $this->session->set_flashdata('errors', $error);
-			redirect('archivero/upload');
+		// Verifica que no haya un archivo
+		if (!empty($_FILES['file']['name'])) {
+			if ($this->upload->do_upload('file')) {
+				// Guarda y sube el nuevo archivo
+				$data = $this->upload->data();
+				$fileData['file'] = $data['file_name'];
 
-			return;
+				// Elimina el archivo anterior
+				$oldFile = $this->archivero_model->get_id_file($id);
+				if ($oldFile && file_exists('./uploads/' . $oldFile->file)) {
+					unlink('./uploads/' . $oldFile->file);
+				}
+			} else {
+				$this->session->set_flashdata('errors', 'Ocurrió un error al subir el archivo. Verifica que el archivo cumpla con todos los requisitos.');
+				redirect('archivero/edit/' . $id);
+				return;
+			}
 		}
-		else {
 
-			$data = $this->upload->data(); // guardar datos del archivo
+		// if (!empty($data['file_name'])) {
+		// 	$fileData['file'] = $data['file_name'];
+		// }
 
-			$fileData = [
-				'name' => $this->input->post('name'),
-				'file' => $data['file_name'],
-				'iduser' => 1,
-				'idclassification' => $this->input->post('clasificacion_id'),
-				'idsucursal' => $this->input->post('sucursal_id'),
-				'status' => 2,
-
-			];
-
-			$this->archivero_model->update_file($fileData);
-			$this->session->set_flashdata('success', 'Archivo subido con éxito.');
-			redirect('archivero');
-
-		}
+		$this->archivero_model->update_file($id, $fileData);
+		$this->session->set_flashdata('success', 'Información actualizada con éxito');
+		redirect('archivero');
+		
+		
 	}
 
 	

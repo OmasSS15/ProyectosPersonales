@@ -48,12 +48,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <thead>
                                     <tr>
                                         <th class="text-center" scope="col">#</th>
-                                        <th class="text-center" scope="col">Nombre del Archivo</th>
+                                        <th class="text-center" scope="col">Asunto</th>
                                         <th class="text-center" scope="col">Empleado</th>
                                         <th class="text-center" scope="col">Clasificación</th>
                                         <th class="text-center" scope="col">Sucursal</th>
-                                        <th class="text-center" scope="col">Fecha</th>
-                                        <th class="text-center" scope="col">Hora</th>
+                                        <th class="text-center" scope="col">Fecha de Envío</th>
+                                        <th class="text-center" scope="col">Hora de Envío</th>
                                         <th class="text-center" scope="col">Estado</th>
                                         <th class="text-center" scope="col">Opciones</th>
                                     </tr>
@@ -66,7 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <td><?php echo $file->user_name . ' ' . $file->user_lastname; ?></td>
                                             <td><?php echo $file->classification; ?></td>
                                             <td><?php echo $file->sucursal; ?></td>
-                                            <?php $datetime = new DateTime($file->updated); ?>
+                                            <?php $datetime = new DateTime($file->created); ?>
                                             <td><?= $datetime->format('Y/m/d') ?></td>
                                             <td><?= $datetime->format('h:i A') ?></td>
                                             <?php if($file->status == 1): ?>
@@ -78,7 +78,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <?php endif; ?>
                                             <td>
                                                 <?php if($file->status == 1): ?>
-                                                    <a class="btn btn-danger me-1" href=""><i class='bx bxs-download'></i></a>
+                                                    <a class="btn btn-danger me-1" href="<?= base_url('uploads/' . $file->file); ?>" download><i class='bx bxs-download'></i></a>
                                                 <?php endif; ?>
                                                 <a class="btn btn-warning" href="<?php echo base_url('archivero/edit/') . $file->id; ?>"><i class='bx bxs-edit'></i></a>
                                             </td>
