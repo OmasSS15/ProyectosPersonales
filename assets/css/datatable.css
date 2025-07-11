@@ -1,0 +1,84 @@
+.bg-btn{
+    background-color: #ffffff;
+    color: #8B0000;
+    transition: background-color 0.3s ease;
+}
+
+.bg-btn:hover{
+    background-color: #FFB300;
+    color: black;
+}
+
+.btn-modal {
+    background-color: #8B0000;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-modal:hover {
+    background-color: #A52A2A;
+    color: #fff;
+}
+
+.btn-modal:focus {
+    background-color: #8B0000;
+    box-shadow: 0 0 0 0.25rem #A52A2A40;
+    color: #fff;
+}
+
+.btn-outline-modal {
+    background-color: #fff;
+    color: #8B0000;
+    border: 1px solid #8B0000;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline-modal:hover {
+    background-color: #FFB300;
+    border-color: #FFB300;
+    color: #000;
+}
+
+.card-header{
+    background-color: #8B0000;
+}
+
+/* .card-body{
+    background-color: #ECECEC;
+} */
+
+/* #collapseExample.collapse {
+  transition: height 100s ease; /* por defecto es 0.35s */
+/* } */
+
+.form-control:focus {
+    border-color: #F08080;
+    box-shadow: 0 0 0 0.25rem #A52A2A40;
+}
+
+.form-select:focus {
+    border-color: #F08080;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem #A52A2A40;
+}
+
+.modal-header{
+    background-color: #8B0000;
+}
+
+.pagination {
+    --bs-pagination-color: black;
+    --bs-pagination-hover-color: #8B0000;
+    --bs-pagination-focus-color: #8B0000;
+    --bs-pagination-focus-bg: #FFFFFF;
+    --bs-pagination-focus-box-shadow: 0 0 0 0.25rem #A52A2A40;
+    --bs-pagination-active-color: #fff;
+    --bs-pagination-active-bg: #8B0000;
+    --bs-pagination-active-border-color: #5C0000;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+}
