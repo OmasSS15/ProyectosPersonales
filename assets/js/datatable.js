@@ -3,7 +3,7 @@ let dataTable;
 // Inicializar datatable en false
 let dataTableIsInitialized = false;
 
-$.fn.dataTable.ext.pager.numbers_length = 4;
+$.fn.dataTable.ext.pager.numbers_length = 3;
 // Configuracion del DataTable
 const dataTableOptions = {
     // scrollX: "500px",

@@ -75,7 +75,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <option value="0" <?= $file->status == '0' ? 'selected' : '' ?>>Inválido</option>
                         </select>
                     </div>
-                    
 
                     <div class="col-md-6">
                         <label for="file" class="form-label">Archivo Actual: 
@@ -88,6 +87,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <i class='bx bx-info-circle'></i>
                             Archivos permitidos: <strong>PDF, TXT, Excel</strong>. Tamaño máximo: <strong>10 MB</strong>.
                         </small>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="description" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Escribe una breve descripción si es necesario..."><?= $file->description; ?></textarea>
                     </div>
 
                     <div class="col-12">

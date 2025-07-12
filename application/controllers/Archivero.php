@@ -82,6 +82,7 @@ class Archivero extends CI_Controller {
 				'iduser' => 1,
 				'idclassification' => $this->input->post('clasificacion_id'),
 				'idsucursal' => $this->input->post('sucursal_id'),
+				'description' => $this->input->post('description'),
 				'status' => 2,
 
 			];
@@ -136,7 +137,8 @@ class Archivero extends CI_Controller {
 			'iduser' => 1,
 			'idclassification' => $this->input->post('clasificacion_id'),
 			'idsucursal' => $this->input->post('sucursal_id'),
-			'status' => $this->input->post('status'),
+			'description' => $this->input->post('description'),
+			'status' => $this->input->post('status')
 
 		];
 

@@ -71,6 +71,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </small>
                     </div>
 
+                    <div class="col-md-12">
+                        <label for="description" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Escribe una breve descripción si es necesario..."></textarea>
+                    </div>
+
                     <div class="col-12">
                         <button type="submit" class="btn btn-modal d-flex align-items-center ms-auto">
                             <i class='bx bxs-send fs-5 me-1'></i> Subir Archivo

@@ -78,7 +78,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <?php endif; ?>
                                             <td>
                                                 <?php if($file->status == 1): ?>
-                                                    <a class="btn btn-danger me-1" href="<?= base_url('uploads/' . $file->file); ?>" download><i class='bx bxs-download'></i></a>
+                                                    <a class="btn btn-danger m-1" href="<?= base_url('uploads/' . $file->file); ?>" download><i class='bx bxs-download'></i></a>
                                                 <?php endif; ?>
                                                 <a class="btn btn-warning" href="<?php echo base_url('archivero/edit/') . $file->id; ?>"><i class='bx bxs-edit'></i></a>
                                             </td>
