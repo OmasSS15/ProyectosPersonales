@@ -31,10 +31,27 @@ class Archivero_model extends CI_Model {
         $this->db->insert('files', $fileData);
     }
 
-	public function get_id_file($id) {
+	public function get_file_by_id($id) {
         // PRIMERO SE COLOCA LA TABLA Y LUEGO EL ID
         $query = $this->db->get_where('files', ['id' => $id]);
         return $query->row(); // SE RETORNA A LA FILA QUE SE VA A MOSTRAR
+    }
+
+    public function get_file_by_id_filter($id) {
+        $this->db->select(
+            'files.*, 
+            users.name as user_name, 
+            users.lastname as user_lastname,
+            classification.name as classification,
+            sucursales.sucursal as sucursal'
+        );
+        $this->db->from('files');
+        $this->db->join('users', 'users.id = files.iduser');
+        $this->db->join('classification', 'classification.id = files.idclassification');
+        $this->db->join('sucursales', 'sucursales.id = files.idsucursal');
+        $this->db->where('files.id', $id);
+        $query = $this->db->get();
+        return $query->row(); 
     }
 
     public function update_file($id, $fileData){

@@ -77,10 +77,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <td><i class='bx bxs-x-circle fs-5' style="color:rgb(187, 17, 17)" ></i></td>
                                             <?php endif; ?>
                                             <td>
-                                                <?php if($file->status == 1): ?>
-                                                    <a class="btn btn-danger m-1" href="<?= base_url('uploads/' . $file->file); ?>" download><i class='bx bxs-download'></i></a>
-                                                <?php endif; ?>
-                                                <a class="btn btn-warning" href="<?php echo base_url('archivero/edit/') . $file->id; ?>"><i class='bx bxs-edit'></i></a>
+                                                <div class="d-flex align-items-center flex-wrap gap-1">
+                                                    <?php if($file->status == 1): ?>
+                                                        <a class="btn btn-danger" href="<?= base_url('uploads/' . $file->file); ?>" download>
+                                                            <i class='bx bxs-download'></i>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                    <a class="btn btn-primary" href="<?= base_url('archivero/show/' . $file->id); ?>">
+                                                        <i class='bx bxs-show'></i>
+                                                    </a>
+                                                    <a class="btn btn-warning" href="<?= base_url('archivero/edit/' . $file->id); ?>">
+                                                        <i class='bx bxs-edit'></i>
+                                                    </a>
+                                                </div>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

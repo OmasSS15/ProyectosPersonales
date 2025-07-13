@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="col-auto ms-3">
                         <h3 class="mb-0 d-flex align-items-center">
                             <i class='bx bxs-folder-open fs-1 me-1'></i>
-                            Nuevo Archivo
+                            <?php echo $title; ?>
                         </h3>
                     </div>
                 </div>

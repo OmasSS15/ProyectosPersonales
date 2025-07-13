@@ -66,7 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </select>
                     </div>
                     
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <label for="status" class="form-label">Actualizar Estado</label>
                         <select name="status" id="status" class="form-select" required>
                             <option value="" selected disabled>Seleccionar</option>
@@ -74,7 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <option value="1" <?= $file->status == '1' ? 'selected' : '' ?>>Verificado</option>
                             <option value="0" <?= $file->status == '0' ? 'selected' : '' ?>>Inválido</option>
                         </select>
-                    </div>
+                    </div> -->
 
                     <div class="col-md-6">
                         <label for="file" class="form-label">Archivo Actual: 
@@ -89,14 +89,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </small>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <label for="description" class="form-label">Descripción</label>
-                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Escribe una breve descripción si es necesario..."><?= $file->description; ?></textarea>
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Escribe una breve descripción si es necesario..."><?php echo htmlspecialchars($file->description); ?></textarea>
                     </div>
 
                     <div class="col-12">
                         <button type="submit" class="btn btn-modal d-flex align-items-center ms-auto">
-                            <i class='bx bxs-send fs-5 me-1'></i> Actualizar Archivo
+                            <i class='bx bxs-send fs-5 me-1'></i> Actualizar
                         </button>
                     </div>
                 </form>

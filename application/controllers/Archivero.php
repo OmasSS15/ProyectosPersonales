@@ -24,6 +24,42 @@ class Archivero extends CI_Controller {
 
 	}
 
+	public function show($id){
+		// ES PARA NO MOSTRAR NADA CUANDO EL ID NO EXISTA
+		// $product = $this->product_model->get_product_by_id($id);
+		// if($product == null){
+		// 	show_404();
+		// }
+
+		$mainData = [
+			'title' => 'Detalle de Archivo #' . $id,
+			'content' => 'archivero/show',
+			'file' => $this->archivero_model->get_file_by_id_filter($id)
+ 		];
+
+		$this->load->view('templates/main', $mainData);
+	}
+
+	public function show_update($id){
+		// SI EL ROL NO ES ADMIN, NO PUEDE ACCEDER
+		// if($this->session->userdata('role') != 'admin'){
+		// 	show_error('No estás autorizado');
+		// }
+
+		$fileData = [
+			'commentary' => $this->input->post('comment'),
+			'status' => $this->input->post('status')
+
+		];
+
+		$this->archivero_model->update_file($id, $fileData);
+		$this->session->set_flashdata('success', 'Cambios guardados con éxito');
+		redirect('archivero');
+		
+		
+	}
+
+
 	public function upload()
 	{
 		$mainData = [
@@ -100,7 +136,7 @@ class Archivero extends CI_Controller {
 		// 	show_error('No estás autorizado');
 		// }
 
-		// $archivero = $this->archivero_model->get_id_file($id);
+		// $archivero = $this->archivero_model->get_file_by_id($id);
 		// if($archivero == null){
 		// 	show_404();
 		// }
@@ -108,7 +144,7 @@ class Archivero extends CI_Controller {
 		$mainData = [
 			'title' => 'Archivo #' . $id,
 			'content' => 'archivero/edit',
-			'file' => $this->archivero_model->get_id_file($id),
+			'file' => $this->archivero_model->get_file_by_id($id),
 			'clasificaciones' => $this->clasificacion_model->get_classification_filter(),
 			'sucursales' => $this->sucursal_model->get_all_sucursal()
  		];
@@ -138,7 +174,7 @@ class Archivero extends CI_Controller {
 			'idclassification' => $this->input->post('clasificacion_id'),
 			'idsucursal' => $this->input->post('sucursal_id'),
 			'description' => $this->input->post('description'),
-			'status' => $this->input->post('status')
+			// 'status' => $this->input->post('status')
 
 		];
 
@@ -150,7 +186,7 @@ class Archivero extends CI_Controller {
 				$fileData['file'] = $data['file_name'];
 
 				// Elimina el archivo anterior
-				$oldFile = $this->archivero_model->get_id_file($id);
+				$oldFile = $this->archivero_model->get_file_by_id($id);
 				if ($oldFile && file_exists('./uploads/' . $oldFile->file)) {
 					unlink('./uploads/' . $oldFile->file);
 				}
