@@ -151,12 +151,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="start_date" class="form-label">Desde</label>
-                            <input type="date" class="form-control" id="start_date" name="start_date" value="<?= isset($start_date) ? $start_date : '' ?>">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="end_date" class="form-label">Hasta</label>
-                            <input type="date" class="form-control" id="end_date" name="end_date" value="<?= isset($end_date) ? $end_date : '' ?>">
+                            <label for="fecha" class="form-label">Fecha</label>
+                            <select class="form-select" id="fecha">
+                                <option selected>Seleccionar</option>
+                                <option>...</option>
+                            </select>
                         </div>
                         <div class="modal-footer">
                             <a href="<?php echo base_url('archivero') ?>" class="btn btn btn-outline-modal d-flex align-items-center">

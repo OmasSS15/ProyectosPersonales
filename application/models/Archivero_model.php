@@ -26,7 +26,7 @@ class Archivero_model extends CI_Model {
         return $query->result();
     }
 
-    public function get_files_filters($idclassification, $idsucursal){
+    public function get_files_filters($idclassification, $idsucursal, $start_date, $end_date){
         $this->db->select(
             'files.*, 
             users.name as user_name, 
@@ -43,6 +43,14 @@ class Archivero_model extends CI_Model {
         }
         if ($idsucursal) {
             $this->db->where('idsucursal', $idsucursal);
+        }
+        if ($start_date && $end_date) {
+            $this->db->where('DATE(files.created) >=', $start_date);
+            $this->db->where('DATE(files.created) <=', $end_date);
+        } elseif ($start_date) {
+            $this->db->where('DATE(files.created) >=', $start_date);
+        } elseif ($end_date) {
+            $this->db->where('DATE(files.created) <=', $end_date);
         }
         $query = $this->db->get();
         return $query->result();

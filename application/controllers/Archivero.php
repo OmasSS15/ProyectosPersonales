@@ -16,18 +16,22 @@ class Archivero extends CI_Controller {
 	{
 		$idclassification = $this->input->get('clasificacion_id');
 		$idsucursal = $this->input->get('sucursal_id');
+		$start_date = $this->input->get('start_date');
+		$end_date = $this->input->get('end_date');
 
 		$mainData = [
 			'title' => 'Archivero',
 			'content' => 'archivero/index',
 			// 'files' => $this->archivero_model->get_all_files(),
-			'files' => $this->archivero_model->get_files_filters($idclassification, $idsucursal),
+			'files' => $this->archivero_model->get_files_filters($idclassification, $idsucursal, $start_date, $end_date),
 			'clasificaciones' => $this->clasificacion_model->get_classification_filter(),
 			'sucursales' => $this->sucursal_model->get_all_sucursal(),
 
 			// Para mostra la opción seleccionada
 			'idclassification' => $idclassification,
 			'idsucursal' => $idsucursal,
+			'start_date' => $start_date,
+    		'end_date' => $end_date,
  		];
 
 		
