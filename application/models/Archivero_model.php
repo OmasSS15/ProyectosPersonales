@@ -26,6 +26,28 @@ class Archivero_model extends CI_Model {
         return $query->result();
     }
 
+    public function get_files_filters($idclassification, $idsucursal){
+        $this->db->select(
+            'files.*, 
+            users.name as user_name, 
+            users.lastname as user_lastname,
+            classification.name as classification,
+            sucursales.sucursal as sucursal'
+        );
+        $this->db->from('files');
+        $this->db->join('users', 'users.id = files.iduser');
+        $this->db->join('classification', 'classification.id = files.idclassification');
+        $this->db->join('sucursales', 'sucursales.id = files.idsucursal');
+        if ($idclassification) {
+            $this->db->where('idclassification', $idclassification);
+        }
+        if ($idsucursal) {
+            $this->db->where('idsucursal', $idsucursal);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     public function save_file($fileData){
         //NOS PERMITE AÑADIR NUEVOS REGISTROS
         $this->db->insert('files', $fileData);

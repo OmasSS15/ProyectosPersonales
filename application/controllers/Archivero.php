@@ -17,11 +17,29 @@ class Archivero extends CI_Controller {
 		$mainData = [
 			'title' => 'Archivero',
 			'content' => 'archivero/index',
-			'files' => $this->archivero_model->get_all_files()
+			'files' => $this->archivero_model->get_all_files(),
+			'clasificaciones' => $this->clasificacion_model->get_classification_filter(),
+			'sucursales' => $this->sucursal_model->get_all_sucursal()
  		];
 
 		$this->load->view('templates/main', $mainData);
 
+	}
+
+	public function filter(){
+
+		$idclassification = $this->input->get('clasificacion_id');
+		$idsucursal = $this->input->get('sucursal_id');
+
+		$mainData = [
+			'title' => 'Archivero',
+			'content' => 'archivero/index',
+			'files' => $this->archivero_model->get_files_filters($idclassification, $idsucursal),
+			'clasificaciones' => $this->clasificacion_model->get_classification_filter(),
+			'sucursales' => $this->sucursal_model->get_all_sucursal()
+ 		];
+		
+		$this->load->view('templates/main', $mainData);
 	}
 
 	public function show($id){
@@ -83,14 +101,14 @@ class Archivero extends CI_Controller {
 
 		// $config['upload_path'] = './uploads/'; // ruta para guardar los archivos
 		// $config['allowed_types'] = 'pdf|txt|xlsx'; // archivos permitidos
-		// $config['max_size'] = 10240; // tamaño maximo del archivo
+		// $config['max_size'] = 51200; // tamaño maximo del archivo
 
 		$new_name = date('YmdHis');
 
 		$config = [
 			'upload_path' => './uploads/', // ruta para guardar los archivos
 			'allowed_types' => 'pdf|txt|xlsx', // archivos permitidos
-			'max_size' => 10240,
+			'max_size' => 51200, // tamaño maximo del archivo
 			'file_name' => $new_name 
 		];
 
@@ -161,7 +179,7 @@ class Archivero extends CI_Controller {
 		$config = [
 			'upload_path' => './uploads/', // ruta para guardar los archivos
 			'allowed_types' => 'pdf|txt|xlsx', // archivos permitidos
-			'max_size' => 10240
+			'max_size' => 51200
 		];
 
 		$this->load->library('upload', $config); // libreria para subir archivos

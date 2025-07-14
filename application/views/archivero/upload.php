@@ -67,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <input type="file" class="form-control" id="file" name="file" required>
                         <small class="form-text text-muted d-block mt-1">
                             <i class='bx bx-info-circle'></i>
-                            Archivos permitidos: <strong>PDF, TXT, Excel</strong>. Tamaño máximo: <strong>10 MB</strong>.
+                            Archivos permitidos: <strong>PDF, TXT, Excel</strong>. Tamaño máximo: <strong>50 MB</strong>.
                         </small>
                     </div>
 
