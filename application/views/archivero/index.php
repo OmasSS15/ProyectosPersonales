@@ -123,14 +123,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <button type="button" class="btn d-flex align-items-center ms-auto" data-bs-dismiss="modal" aria-label="Close"><i class='bx bx-x fs-3' style="color: white;"></i></button>
                 </div>
                 <div class="modal-body">
-                    <form class="row g-3" method="GET" action="<?php echo base_url('archivero/filter') ?>">
+                    <form class="row g-3" method="GET" action="<?php echo base_url('archivero') ?>">
                         <div class="col-md-6">
                             <label for="clasificacion_file" class="form-label">Clasificación</label>
                             <select class="form-select" id="clasificacion" name="clasificacion_id">
                                 <option value="" selected disabled>Seleccionar</option>
                                 <?php foreach ($clasificaciones as $clasificacion): ?>
                                     <!-- ?= ... es la abreviatura de php echo ...  -->
-                                    <option value="<?= $clasificacion->id ?>">
+                                    <option value="<?= $clasificacion->id ?>"
+                                        <?= ($idclassification == $clasificacion->id) ? 'selected' : '' ?>>
                                         <?= $clasificacion->name ?>
                                     </option>
                                 <?php endforeach ?>
@@ -142,7 +143,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <option value="" selected disabled>Seleccionar</option>
                                 <?php foreach ($sucursales as $sucursal): ?>
                                     <!-- ?= ... es la abreviatura de php echo ...  -->
-                                    <option value="<?= $sucursal->id ?>"><?= $sucursal->sucursal ?></option>
+                                    <option value="<?= $sucursal->id ?>"
+                                        <?= ($idsucursal == $sucursal->id) ? 'selected' : '' ?>>
+                                        <?= $sucursal->sucursal ?>
+                                    </option>
                                 <?php endforeach ?>
                             </select>
                         </div>
@@ -154,8 +158,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </select>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-modal">Limpiar</button>
-                            <button type="submit" class="btn btn-modal">Aplicar</button>
+                            <a href="<?php echo base_url('archivero') ?>" class="btn btn btn-outline-modal d-flex align-items-center">
+                                <i class='bx bxs-eraser fs-5 me-1'></i>Limpiar
+                            </a>
+                            <button type="submit" class="btn btn-modal d-flex align-items-center">
+                                <i class='bx bx-search fs-5 me-1'></i>Aplicar
+                            </button>
                         </div>
                     </form>
                 </div>

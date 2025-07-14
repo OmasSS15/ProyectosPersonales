@@ -14,32 +14,26 @@ class Archivero extends CI_Controller {
 
 	public function index()
 	{
-		$mainData = [
-			'title' => 'Archivero',
-			'content' => 'archivero/index',
-			'files' => $this->archivero_model->get_all_files(),
-			'clasificaciones' => $this->clasificacion_model->get_classification_filter(),
-			'sucursales' => $this->sucursal_model->get_all_sucursal()
- 		];
-
-		$this->load->view('templates/main', $mainData);
-
-	}
-
-	public function filter(){
-
 		$idclassification = $this->input->get('clasificacion_id');
 		$idsucursal = $this->input->get('sucursal_id');
 
 		$mainData = [
 			'title' => 'Archivero',
 			'content' => 'archivero/index',
+			// 'files' => $this->archivero_model->get_all_files(),
 			'files' => $this->archivero_model->get_files_filters($idclassification, $idsucursal),
 			'clasificaciones' => $this->clasificacion_model->get_classification_filter(),
-			'sucursales' => $this->sucursal_model->get_all_sucursal()
+			'sucursales' => $this->sucursal_model->get_all_sucursal(),
+
+			// Para mostra la opción seleccionada
+			'idclassification' => $idclassification,
+			'idsucursal' => $idsucursal,
  		];
+
 		
+
 		$this->load->view('templates/main', $mainData);
+
 	}
 
 	public function show($id){
@@ -50,7 +44,7 @@ class Archivero extends CI_Controller {
 		// }
 
 		$mainData = [
-			'title' => 'Detalle de Archivo #' . $id,
+			'title' => 'Detalles del Documento',
 			'content' => 'archivero/show',
 			'file' => $this->archivero_model->get_file_by_id_filter($id)
  		];
@@ -103,7 +97,7 @@ class Archivero extends CI_Controller {
 		// $config['allowed_types'] = 'pdf|txt|xlsx'; // archivos permitidos
 		// $config['max_size'] = 51200; // tamaño maximo del archivo
 
-		$new_name = date('YmdHis');
+		$new_name = date('YmdHis'); // Cacmbia el nombre por la fecha y hora
 
 		$config = [
 			'upload_path' => './uploads/', // ruta para guardar los archivos
@@ -160,7 +154,7 @@ class Archivero extends CI_Controller {
 		// }
 
 		$mainData = [
-			'title' => 'Archivo #' . $id,
+			'title' => 'Modificar Datos del Documento',
 			'content' => 'archivero/edit',
 			'file' => $this->archivero_model->get_file_by_id($id),
 			'clasificaciones' => $this->clasificacion_model->get_classification_filter(),
@@ -176,10 +170,13 @@ class Archivero extends CI_Controller {
 		// 	show_error('No estás autorizado');
 		// }
 
+		$new_name = date('YmdHis');
+
 		$config = [
 			'upload_path' => './uploads/', // ruta para guardar los archivos
 			'allowed_types' => 'pdf|txt|xlsx', // archivos permitidos
-			'max_size' => 51200
+			'max_size' => 51200,
+			'file_name' => $new_name 
 		];
 
 		$this->load->library('upload', $config); // libreria para subir archivos

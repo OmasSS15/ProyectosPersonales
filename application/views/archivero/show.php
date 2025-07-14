@@ -44,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <td>Empleado</td>
                             </tr>
                             <tr>
-                                <th>Nombre:</th>
+                                <th>Responsable:</th>
                                 <td><?php echo $file->user_name . ' ' . $file->user_lastname; ?></td>
                             </tr>
                             <tr>
