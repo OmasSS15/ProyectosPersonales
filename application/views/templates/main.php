@@ -20,6 +20,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Select2 -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+
+    <!-- Flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     
     <!-- Custom CSS -->
     <link href="<?php echo base_url('assets/css/menu.css'); ?>" rel="stylesheet"/>
@@ -58,9 +61,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Select2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     
+    <!-- Flatpickr -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <!-- Custom JS -->
     <script src="<?php echo base_url('assets/js/menu.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/datatable.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/select2.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/flatpickr.js'); ?>"></script>
 
 </html>
