@@ -30,7 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </a>
                         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="sidebar">
                             <li class="sidebar-item mb-2">
-                                <a href="#" class="sidebar-link">
+                                <a href="<?php echo base_url('users'); ?>" class="sidebar-link">
                                    Usuarios 
                                 </a>
                             </li>

@@ -1,5 +1,6 @@
 //DataTable
-let dataTable;
+let dataTableFiles;
+let dataTableUsers;
 // Inicializar datatable en false
 let dataTableIsInitialized = false;
 
@@ -34,13 +35,15 @@ const dataTableOptions = {
 
 const initDataTable = async () => { 
     if (dataTableIsInitialized) {
-        dataTable.destroy();
+        dataTableFiles.destroy();
+        dataTableUsers.destroy();
     }
 
     // Mostrar datos de JSONPlaceholder
     // await listUsers();
     
-    dataTable = $("#datatable_files").DataTable(dataTableOptions);
+    dataTableFiles = $("#datatable_files").DataTable(dataTableOptions);
+    dataTableUsers = $("#datatable_users").DataTable(dataTableOptions);
     
     // Inicializar datatable en true
     dataTableIsInitialized = true;

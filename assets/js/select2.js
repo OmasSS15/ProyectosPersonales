@@ -41,6 +41,16 @@ $(document).ready(function() {
         width: '100%'
     });
 
+    $("#rol").select2({
+        language: {
+            noResults: function(){
+                return "No hay resultado";
+            }
+        },
+        theme: 'bootstrap-5',
+        width: '100%'
+    });
+
     $("#status").select2({
         language: {
             noResults: function(){

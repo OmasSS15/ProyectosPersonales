@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?php echo base_url('home'); ?>">Inicio</a></li>
-                <li class="breadcrumb-item"><a href="<?php echo base_url('archivero'); ?>">Archivero</a></li>
+                <li class="breadcrumb-item"><a href="<?php echo base_url('users'); ?>">Catálogo de Usuarios</a></li>
                 <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
             </ol>
         </nav>
@@ -36,78 +36,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <table class="table table-striped table-hover">
                         <tbody>
                             <tr>
-                                <th>Asunto:</th>
-                                <td><?php echo $file->name; ?></td>
+                                <th>Nombre Completo:</th>
+                                <td><?php echo $user->user_name . ' ' . $user->user_lastname; ?></td>
                             </tr>
                             <tr>
-                                <th>Puesto:</th>
-                                <td><?php echo $file->rol; ?></td>
+                                <th>Correo Electrónico:</th>
+                                <td><?php echo $user->email; ?></td>
                             </tr>
                             <tr>
-                                <th>Responsable:</th>
-                                <td><?php echo $file->user_name . ' ' . $file->user_lastname; ?></td>
+                                <th>Contraseña:</th>
+                                <td><?php echo $user->password; ?></td>
                             </tr>
                             <tr>
-                                <th>Clasificación:</th>
-                                <td><?php echo $file->classification; ?></td>
+                                <th>Cargo:</th>
+                                <td><?php echo $user->rol; ?></td>
                             </tr>
                             <tr>
                                 <th>Sucursal:</th>
-                                <td><?php echo $file->sucursal; ?></td>
+                                <td><?php echo $user->sucursal; ?></td>
                             </tr>
                             <tr>
-                                <th>Descripción:</th>
-                                <td><?php echo $file->description; ?></td>
-                            </tr>
-                            <tr>
-                                <th>Archivo:</th>
-                                <td>
-                                    <a href="<?= base_url('uploads/' . $file->file) ?>" target="_blank">
-                                        <?php echo $file->file ?>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Fecha y Hora de Envío:</th>
-                                <td><?php echo (new DateTime($file->created))->format('Y/m/d h:i A'); ?></td>
+                                <th>Fecha y Hora del Registro:</th>
+                                <td><?php echo (new DateTime($user->created))->format('Y/m/d h:i A'); ?></td>
                             </tr>
                             <tr>
                                 <th>Última Modificación:</th>
-                                <td><?php echo (new DateTime($file->updated))->format('Y/m/d h:i A'); ?></td>
+                                <td><?php echo (new DateTime($user->updated))->format('Y/m/d h:i A'); ?></td>
                             </tr>
                             <tr>
                                 <th>Estado:</th>
                                 <td class="d-flex align-items-center">
-                                    <?php if($file->status == 1): ?>
-                                        <i class='bx bxs-check-circle fs-5 me-1 text-success'></i>Verificado
-                                    <?php elseif($file->status == 2): ?>
-                                        <i class='bx bxs-time fs-5 me-1 text-warning'></i>Pendiente
+                                    <?php if($user->status == 1): ?>
+                                        <i class='bx bxs-check-circle fs-5 me-1 text-success'></i>Activo
                                     <?php else: ?>
-                                        <i class='bx bxs-x-circle fs-5 me-1 text-danger'></i>Inválido
+                                        <i class='bx bxs-x-circle fs-5 me-1 text-danger'></i>Inactivo
                                     <?php endif; ?>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>Comentarios:</th>
-                                <td><?php echo $file->commentary; ?></td>
-                            </tr>
                         </tbody>
                     </table>
-                    <form method="post" action="<?php echo base_url('archivero/show_update/') . $file->id; ?>">
+                    <form method="post" action="<?php echo base_url('users/show_update/') . $user->id; ?>">
                         <div class="row container g-3">
                             <div class="col-md-6">
                                 <label for="status" class="form-label">Actualizar Estado:</label>
                                 <select name="status" id="status" class="form-select" required>
                                     <option value="" disabled>Seleccionar</option>
-                                    <option value="2" <?= $file->status == '2' ? 'selected' : '' ?>>Pendiente</option>
-                                    <option value="1" <?= $file->status == '1' ? 'selected' : '' ?>>Verificado</option>
-                                    <option value="0" <?= $file->status == '0' ? 'selected' : '' ?>>Inválido</option>
+                                    <option value="1" <?= $user->status == '1' ? 'selected' : '' ?>>Activo</option>
+                                    <option value="0" <?= $user->status == '0' ? 'selected' : '' ?>>Inactivo</option>
                                 </select>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="comment" class="form-label">Comentarios:</label>
-                                <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Añade un comentario si es necesario..."></textarea>
                             </div>
 
                             <div class="col-12">

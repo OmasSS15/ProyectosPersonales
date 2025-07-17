@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="col-auto ms-3">
                                 <h3 class="mb-0 d-flex align-items-center">
                                     <i class='bx bxs-folder-open fs-1 me-1'></i>
-                                    Archivero
+                                    <?php echo $title; ?>
                                 </h3>
                             </div>
                             <div class="col-auto d-flex gap-2 me-3">
@@ -77,7 +77,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <td><i class='bx bxs-x-circle fs-5' style="color:rgb(187, 17, 17)" ></i></td>
                                             <?php endif; ?>
                                             <td>
-                                                <div class="d-flex align-items-center flex-wrap gap-1">
+                                                <div class="d-flex align-items-center gap-1">
                                                     <?php if($file->status == 1): ?>
                                                         <a class="btn btn-danger" href="<?= base_url('uploads/' . $file->file); ?>" download>
                                                             <i class='bx bxs-download'></i>

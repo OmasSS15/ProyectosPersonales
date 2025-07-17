@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?php echo base_url('home'); ?>">Inicio</a></li>
-                <li class="breadcrumb-item"><a href="<?php echo base_url('archivero'); ?>">Archivero</a></li>
+                <li class="breadcrumb-item"><a href="<?php echo base_url('users'); ?>">Catálogo de Usuarios</a></li>
                 <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
             </ol>
         </nav>
@@ -32,21 +32,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             </div>
             <div class="card-body">
-                <form action="<?php echo base_url('archivero/update/') . $file->id; ?>" method="post" enctype="multipart/form-data" class="row g-3">
+                <form action="<?php echo base_url('users/update/') . $user->id; ?>" method="post" enctype="multipart/form-data" class="row g-3">
                     <div class="col-md-6">
-                        <label for="name" class="form-label">Asunto</label>
-                        <input type="text" class="form-control" id="name" name="name" value="<?php echo $file->name; ?>" placeholder="Ingresa un nombre..." required>
+                        <label for="name" class="form-label">Nombre(s)</label>
+                        <input type="text" class="form-control" id="name" name="name" value="<?php echo $user->name; ?>" placeholder="Ingresa un nombre(s)..." required>
                     </div>
 
                     <div class="col-md-6">
-                        <label for="clasificacion_file" class="form-label">Clasificación</label>
-                        <select class="form-select" id="clasificacion_file" name="clasificacion_id" required>
+                        <label for="lastname" class="form-label">Apellido(s)</label>
+                        <input type="text" class="form-control" id="lastname" name="lastname" value="<?php echo $user->lastname; ?>" placeholder="Ingresa un apellido(s)..." required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="email" name="email" value="<?php echo $user->email; ?>" placeholder="Ingresa un correo electrónico..." required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="password" class="form-label">Nueva Contraseña</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Ingresa una nueva contraseña...">
+                        <small class="form-text text-muted d-block mt-1">
+                            <i class='bx bx-info-circle'></i>
+                            Dejar en blanco si no es necesario.
+                        </small>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="rol" class="form-label">Cargo</label>
+                        <select class="form-select" id="rol" name="rol_id" required>
                             <option value="" selected disabled>Seleccionar</option>
-                            <?php foreach ($clasificaciones as $clasificacion): ?>
+                            <?php foreach ($roles as $rol): ?>
                                 <!-- ?= ... es la abreviatura de php echo ...  -->
-                                <option value="<?= $clasificacion->id ?>"
-                                    <?= $file->idclassification == $clasificacion->id ? 'selected' : '' ?>>
-                                    <?= $clasificacion->name ?>
+                                <option value="<?= $rol->id ?>"
+                                    <?= $user->idrol == $rol->id ? 'selected' : '' ?>>
+                                    <?= $rol->rol ?>
                                 </option>
                             <?php endforeach ?>
                         </select>
@@ -59,39 +78,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php foreach ($sucursales as $sucursal): ?>
                                 <!-- ?= ... es la abreviatura de php echo ...  -->
                                 <option value="<?= $sucursal->id ?>"
-                                    <?= $file->idsucursal == $sucursal->id ? 'selected' : '' ?>>
+                                    <?= $user->idsucursal == $sucursal->id ? 'selected' : '' ?>>
                                     <?= $sucursal->sucursal ?>
                                 </option>
                             <?php endforeach ?>
                         </select>
-                    </div>
-                    
-                    <!-- <div class="col-md-6">
-                        <label for="status" class="form-label">Actualizar Estado</label>
-                        <select name="status" id="status" class="form-select" required>
-                            <option value="" selected disabled>Seleccionar</option>
-                            <option value="2" <?= $file->status == '2' ? 'selected' : '' ?>>Pendiente</option>
-                            <option value="1" <?= $file->status == '1' ? 'selected' : '' ?>>Verificado</option>
-                            <option value="0" <?= $file->status == '0' ? 'selected' : '' ?>>Inválido</option>
-                        </select>
-                    </div> -->
-
-                    <div class="col-md-6">
-                        <label for="file" class="form-label">Archivo Actual: 
-                            <a href="<?= base_url('uploads/' . $file->file) ?>" target="_blank">
-                                <?= $file->file ?>
-                            </a>
-                        </label>
-                        <input type="file" class="form-control" id="file" name="file">
-                        <small class="form-text text-muted d-block mt-1">
-                            <i class='bx bx-info-circle'></i>
-                            Archivos permitidos: <strong>PDF, TXT, Excel</strong>. Tamaño máximo: <strong>50 MB</strong>.
-                        </small>
-                    </div>
-
-                    <div class="col-md-12">
-                        <label for="description" class="form-label">Descripción</label>
-                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Escribe una breve descripción si es necesario..."><?php echo htmlspecialchars($file->description); ?></textarea>
                     </div>
 
                     <div class="col-12">

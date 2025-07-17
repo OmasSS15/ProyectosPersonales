@@ -72,11 +72,13 @@ class Archivero_model extends CI_Model {
             'files.*, 
             users.name as user_name, 
             users.lastname as user_lastname,
+            roles.rol as rol,
             classification.name as classification,
             sucursales.sucursal as sucursal'
         );
         $this->db->from('files');
         $this->db->join('users', 'users.id = files.iduser');
+        $this->db->join('roles', 'roles.id = users.idrol');
         $this->db->join('classification', 'classification.id = files.idclassification');
         $this->db->join('sucursales', 'sucursales.id = files.idsucursal');
         $this->db->where('files.id', $id);
