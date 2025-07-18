@@ -15,17 +15,20 @@ class Users extends CI_Controller {
     public function index()
 	{
 		$idsucursal = $this->input->get('sucursal_id');
+		$idrol = $this->input->get('rol_id');
 		$start_date = $this->input->get('start_date');
 		$end_date = $this->input->get('end_date');
 
 		$mainData = [
 			'title' => 'Catálogo de Usuarios',
 			'content' => 'users/index',
-			'users' => $this->users_model->get_users_filters($idsucursal, $start_date, $end_date),
+			'users' => $this->users_model->get_users_filters($idsucursal, $idrol, $start_date, $end_date),
 			'sucursales' => $this->sucursal_model->get_all_sucursal(),
+			'roles' => $this->rol_model->get_all_rol(),
 
 			// Para mostra la opción seleccionada
 			'idsucursal' => $idsucursal,
+			'idrol' => $idrol,
 			'start_date' => $start_date,
     		'end_date' => $end_date,
  		];

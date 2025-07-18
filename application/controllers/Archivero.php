@@ -24,8 +24,8 @@ class Archivero extends CI_Controller {
 			'content' => 'archivero/index',
 			// 'files' => $this->archivero_model->get_all_files(),
 			'files' => $this->archivero_model->get_files_filters($idclassification, $idsucursal, $start_date, $end_date),
-			'clasificaciones' => $this->clasificacion_model->get_classification_filter(),
-			'sucursales' => $this->sucursal_model->get_all_sucursal(),
+			'clasificaciones' => $this->clasificacion_model->get_classification_filter(), //Filtro
+			'sucursales' => $this->sucursal_model->get_all_sucursal(), //Filtro
 
 			// Para mostra la opción seleccionada
 			'idclassification' => $idclassification,

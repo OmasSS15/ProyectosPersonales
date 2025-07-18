@@ -9,7 +9,7 @@ class Users_model extends CI_Model {
         $this->load->database();
     }
 
-    public function get_users_filters($idsucursal, $start_date, $end_date){
+    public function get_users_filters($idsucursal, $idrol, $start_date, $end_date){
         $this->db->select(
             'users.*, 
             users.name as user_name, 
@@ -22,6 +22,9 @@ class Users_model extends CI_Model {
         $this->db->join('sucursales', 'sucursales.id = users.idsucursal');
         if ($idsucursal) {
             $this->db->where('idsucursal', $idsucursal);
+        }
+        if ($idrol) {
+            $this->db->where('idrol', $idrol);
         }
         if ($start_date && $end_date) {
             $this->db->where('DATE(users.created) >=', $start_date);

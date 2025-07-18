@@ -123,8 +123,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <button type="button" class="btn d-flex align-items-center ms-auto" data-bs-dismiss="modal" aria-label="Close"><i class='bx bx-x fs-3' style="color: white;"></i></button>
                 </div>
                 <div class="modal-body">
-                    <form class="row g-3" method="GET" action="<?php echo base_url('archivero') ?>">
-                        <div class="col-md-12">
+                    <form class="row g-3" method="GET" action="<?php echo base_url('users') ?>">
+                        <div class="col-md-6">
                             <label for="sucursal_file" class="form-label">Sucursal</label>
                             <select class="form-select" id="sucursal" name="sucursal_id">
                                 <option value="" selected disabled>Seleccionar</option>
@@ -138,14 +138,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="fecha" class="form-label">Fecha</label>
-                            <select class="form-select" id="fecha">
-                                <option selected>Seleccionar</option>
-                                <option>...</option>
+                            <label for="rol" class="form-label">Cargo</label>
+                            <select class="form-select" id="rol" name="rol_id">
+                                <option value="" selected disabled>Seleccionar</option>
+                                <?php foreach ($roles as $rol): ?>
+                                    <!-- ?= ... es la abreviatura de php echo ...  -->
+                                    <option value="<?= $rol->id ?>"
+                                        <?= ($idrol == $rol->id) ? 'selected' : '' ?>>
+                                        <?= $rol->rol ?>
+                                    </option>
+                                <?php endforeach ?>
                             </select>
                         </div>
+                        <div class="col-md-6">
+                            <label for="start_date" class="form-label">Desde</label>
+                            <input type="text" class="form-control" id="start_date" name="start_date" value="<?= isset($start_date) ? $start_date : '' ?>" placeholder="Seleccionar fecha">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="end_date" class="form-label">Hasta</label>
+                            <input type="text" class="form-control" id="end_date" name="end_date" value="<?= isset($end_date) ? $end_date : '' ?>" placeholder="Seleccionar fecha">
+                        </div>
                         <div class="modal-footer">
-                            <a href="<?php echo base_url('archivero') ?>" class="btn btn btn-outline-modal d-flex align-items-center">
+                            <a href="<?php echo base_url('users') ?>" class="btn btn btn-outline-modal d-flex align-items-center">
                                 <i class='bx bxs-eraser fs-5 me-1'></i>Limpiar
                             </a>
                             <button type="submit" class="btn btn-modal d-flex align-items-center">
