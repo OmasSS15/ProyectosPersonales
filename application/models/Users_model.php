@@ -54,6 +54,12 @@ class Users_model extends CI_Model {
         return $query->row(); 
     }
 
+    public function get_user_by_email($email){
+        $query = $this->db->get_where('users', ['email' => $email]);
+        return $query->row();
+    }
+
+
     public function save_user($userData){
         //NOS PERMITE AÑADIR NUEVOS REGISTROS
         $this->db->insert('users', $userData);

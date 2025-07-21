@@ -74,7 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </li>    
                 </ul>              
                 <div class="sidebar-footer px-2 pb-2">
-                    <a href="#" class="sidebar-link">
+                    <a href="<?php echo base_url('auth/logout') ?>" class="sidebar-link">
                         <i class='bx bx-log-out'></i>
                         <span>Cerrar Sesión</span>
                     </a>
