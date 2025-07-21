@@ -2,7 +2,7 @@
 // ESTA LINEA DE CODIGO ES IMPORTANTE Y TIENE QUE USARSE
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Archivero extends CI_Controller {
+class Archivero extends MY_Controller {
 
 	public function __construct(){	
 		parent::__construct();
@@ -100,8 +100,11 @@ class Archivero extends CI_Controller {
 		// $config['upload_path'] = './uploads/'; // ruta para guardar los archivos
 		// $config['allowed_types'] = 'pdf|txt|xlsx'; // archivos permitidos
 		// $config['max_size'] = 51200; // tamaño maximo del archivo
+		
 
 		$new_name = date('YmdHis'); // Cacmbia el nombre por la fecha y hora
+		$user_id = $this->session->userdata('user_id'); //id del usuario
+		$idsucursal = $this->session->userdata('idsucursal'); //id de la sucursal del usuario
 
 		$config = [
 			'upload_path' => './uploads/', // ruta para guardar los archivos
@@ -131,9 +134,10 @@ class Archivero extends CI_Controller {
 			$fileData = [
 				'name' => $this->input->post('name'),
 				'file' => $data['file_name'],
-				'iduser' => 1,
+				'iduser' => $user_id,
 				'idclassification' => $this->input->post('clasificacion_id'),
-				'idsucursal' => $this->input->post('sucursal_id'),
+				// 'idsucursal' => $this->input->post('sucursal_id'),
+				'idsucursal' => $idsucursal,
 				'description' => $this->input->post('description'),
 				'status' => 2,
 
@@ -189,9 +193,7 @@ class Archivero extends CI_Controller {
 
 		$fileData = [
 			'name' => $this->input->post('name'),
-			'iduser' => 1,
 			'idclassification' => $this->input->post('clasificacion_id'),
-			'idsucursal' => $this->input->post('sucursal_id'),
 			'description' => $this->input->post('description'),
 			// 'status' => $this->input->post('status')
 
@@ -225,6 +227,23 @@ class Archivero extends CI_Controller {
 		redirect('archivero');
 		
 		
+	}
+
+	public function delete($id){
+
+		// SI EL ROL NO ES ADMIN, NO PUEDE ACCEDER
+		// if($this->session->userdata('role') != 'admin'){
+		// 	show_error('No estás autorizado');
+		// }
+
+		// Elimina el archivo
+		$oldFile = $this->archivero_model->get_file_by_id($id);
+		if ($oldFile && file_exists('./uploads/' . $oldFile->file)) {
+			unlink('./uploads/' . $oldFile->file);
+		}
+		
+		$this->archivero_model->delete_file($id);
+		redirect('archivero');
 	}
 
 	

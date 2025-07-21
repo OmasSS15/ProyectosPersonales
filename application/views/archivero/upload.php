@@ -51,16 +51,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </select>
                     </div>
 
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <label for="sucursal_file" class="form-label">Sucursal</label>
                         <select class="form-select" id="sucursal_file" name="sucursal_id" required>
                             <option value="" selected disabled>Seleccionar</option>
                             <?php foreach ($sucursales as $sucursal): ?>
-                                <!-- ?= ... es la abreviatura de php echo ...  -->
+                                ?= ... es la abreviatura de php echo ...
                                 <option value="<?= $sucursal->id ?>"><?= $sucursal->sucursal ?></option>
                             <?php endforeach ?>
                         </select>
-                    </div>
+                    </div> -->
 
                     <div class="col-md-6">
                         <label for="file" class="form-label">Seleccionar Archivo</label>
@@ -71,7 +71,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </small>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label for="description" class="form-label">Descripción</label>
                         <textarea class="form-control" id="description" name="description" rows="3" placeholder="Escribe una breve descripción si es necesario..."></textarea>
                     </div>

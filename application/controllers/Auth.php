@@ -16,7 +16,7 @@ class Auth extends CI_Controller {
 		if($this->session->userdata('logged_in')){
 
 			//show_error('Ya iniciaste Sesión');
-			redirect('archivero');
+			redirect('home');
 			return;
 		}
 
@@ -35,7 +35,7 @@ class Auth extends CI_Controller {
 		if($this->session->userdata('logged_in')){
 			// OTRA FORMA DE MOSTRAR UN MENSAJE DE ERROR Y PROTEGER LAS RUTAS
 			//show_error('Ya iniciaste Sesión');
-			redirect('archivero');
+			redirect('home');
 
 			return;
 		}
@@ -47,10 +47,13 @@ class Auth extends CI_Controller {
 			// LOGIN CORRECTO
 			// set_userdata: SIRVE PARA GUARDAR LOS DATOS EN LA SESIÓN
 			// DE MODO QUE PUEDAS ACCEDER A CUALQUIER PARTE DEL SISTEMA MIENTRAS LA SESIÓN ESTE ACTIVA.
+			$this->session->set_userdata('user_id', $user->id);
 			$this->session->set_userdata('email', $user->email);
-			$this->session->set_userdata('role', $user->role);
+			$this->session->set_userdata('idrol', $user->idrol);
+			$this->session->set_userdata('idsucursal', $user->idsucursal);
+			$this->session->set_userdata('status', $user->status);
 			$this->session->set_userdata('logged_in', true);
-			redirect('archivero');
+			redirect('home');
 			return;
 		} else{
 			// LOGIN INCORRECTO

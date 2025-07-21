@@ -77,7 +77,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <td><i class='bx bxs-x-circle fs-5' style="color:rgb(187, 17, 17)" ></i></td>
                                             <?php endif; ?>
                                             <td>
-                                                <div class="d-flex align-items-center flex-wrap gap-1">
+                                                <div class="d-flex align-items-center gap-1">
                                                     <a class="btn btn-primary" href="<?= base_url('users/show/' . $user->id); ?>">
                                                         <i class='bx bxs-show'></i>
                                                     </a>
@@ -85,9 +85,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <i class='bx bxs-edit'></i>
                                                     </a>
                                                     <?php if($user->status == 0): ?>
-                                                        <a class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#modal_delete">
+                                                        <a class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#modal_delete_<?= $user->id; ?>">
                                                             <i class='bx bxs-trash'></i>
                                                         </a>
+                                                        <!-- Modal Delete -->
+                                                        <div class="modal fade" id="modal_delete_<?= $user->id; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered modal-sm">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header text-white justify-content-center py-3">
+                                                                        <h1 class="modal-title d-flex align-items-center fs-5" id="staticBackdropLabel">
+                                                                            <i class='bx bxs-error fs-4 me-1' ></i>
+                                                                            Atención
+                                                                        </h1>
+                                                                    </div>
+                                                                    <div class="modal-body text-center py-4 px-3">
+                                                                        Esta acción eliminará permanentemente al usuario llamado <strong><?= $user->user_name . ' ' . $user->user_lastname; ?></strong>. ¿Deseas continuar?
+                                                                    </div>
+                                                                    <div class="modal-footer d-flex justify-content-center gap-2">
+                                                                        <button type="button" class="btn btn btn-outline-modal d-flex align-items-center" data-bs-dismiss="modal">
+                                                                            <i class='bx bxs-x-circle fs-5 me-1'></i>Cancelar
+                                                                        </button>
+                                                                        <a href="<?= base_url('users/delete/' . $user->id); ?>" class="btn btn-modal d-flex align-items-center">
+                                                                            <i class='bx bxs-check-circle fs-5 me-1'></i>Confirmar
+                                                                        </a>  
+                                                                    </div>       
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     <?php endif; ?>
                                                 </div>
                                             </td>
@@ -173,28 +197,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
 
-    <!-- Modal Delete -->
-    <div class="modal fade" id="modal_delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-                <div class="modal-header text-white justify-content-center py-3">
-                    <h1 class="modal-title d-flex align-items-center fs-5" id="staticBackdropLabel">
-                        <i class='bx bxs-error fs-4 me-1' ></i>
-                        Atención
-                    </h1>
-                </div>
-                <div class="modal-body text-center py-4 px-3">
-                    Esta acción eliminará permanentemente el registro. ¿Deseas continuar?
-                </div>
-                <div class="modal-footer d-flex justify-content-center gap-2">
-                    <button type="button" class="btn btn btn-outline-modal d-flex align-items-center" data-bs-dismiss="modal">
-                        <i class='bx bxs-x-circle fs-5 me-1'></i>Cancelar
-                    </button>
-                    <a href="<?= base_url('users/delete/' . $user->id); ?>" class="btn btn-modal d-flex align-items-center">
-                        <i class='bx bxs-check-circle fs-5 me-1'></i>Confirmar
-                    </a>  
-                </div>       
-            </div>
-        </div>
-    </div>
+    
 </div>

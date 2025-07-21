@@ -90,4 +90,8 @@ class Archivero_model extends CI_Model {
         // PARA ACTUALIZAR LOS REGISTROS
         $this->db->update('files', $fileData, ['id' => $id]);
     }
+
+    public function delete_file($id){
+        $this->db->delete('files', ['id' => $id]);
+    }
 }
