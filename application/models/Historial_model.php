@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Archivero_model extends CI_Model {
+class Historial_model extends CI_Model {
     public function __construct(){
         // CADA VEZ QUE SE LLAME EL CONSTRUCTOR VA IR ESTA LINEA
         parent::__construct();
@@ -9,7 +9,7 @@ class Archivero_model extends CI_Model {
         $this->load->database();
     }
 
-    public function get_all_files() {
+    public function get_files_by_user($user_id, $idclassification, $idsucursal, $start_date, $end_date){
         $this->db->select(
             'files.*, 
             users.name as user_name, 
@@ -21,23 +21,10 @@ class Archivero_model extends CI_Model {
         $this->db->join('users', 'users.id = files.iduser');
         $this->db->join('classification', 'classification.id = files.idclassification');
         $this->db->join('sucursales', 'sucursales.id = files.idsucursal');
-        $query = $this->db->get();
-        // LOS DATOS SE RETORNAN EN FORMA DE OBJETO
-        return $query->result();
-    }
 
-    public function get_files_filters($idclassification, $idsucursal, $start_date, $end_date){
-        $this->db->select(
-            'files.*, 
-            users.name as user_name, 
-            users.lastname as user_lastname,
-            classification.name as classification,
-            sucursales.sucursal as sucursal'
-        );
-        $this->db->from('files');
-        $this->db->join('users', 'users.id = files.iduser');
-        $this->db->join('classification', 'classification.id = files.idclassification');
-        $this->db->join('sucursales', 'sucursales.id = files.idsucursal');
+        // Filtrar por usuario
+        $this->db->where('files.iduser', $user_id);
+
         if ($idclassification) {
             $this->db->where('idclassification', $idclassification);
         }
@@ -53,6 +40,7 @@ class Archivero_model extends CI_Model {
             $this->db->where('DATE(files.created) <=', $end_date);
         }
         $query = $this->db->get();
+        // echo $this->db->last_query();
         return $query->result();
     }
 

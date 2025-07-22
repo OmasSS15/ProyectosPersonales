@@ -67,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </ul>
                     </li>
                     <li class="sidebar-item px-2">
-                        <a href="#" class="sidebar-link">
+                        <a href="<?php echo base_url('historial'); ?>" class="sidebar-link">
                             <i class='bx bxs-book'></i>
                             <span>Historial</span>
                         </a>

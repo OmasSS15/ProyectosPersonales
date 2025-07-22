@@ -1,6 +1,7 @@
 //DataTable
 let dataTableFiles;
 let dataTableUsers;
+let dataTableHistorial;
 // Inicializar datatable en false
 let dataTableIsInitialized = false;
 
@@ -33,10 +34,38 @@ const dataTableOptions = {
     }
 };
 
+const dataTableOptions2 = {
+    // scrollX: "500px",
+    // searching: false,
+    columnDefs: [
+        { orderable: false, targets:[1, 2, 5, 6]},
+        { searchable: false, targets:[0, 3, 4, 6, 6]}
+    ],
+    pageLength: 5,
+    destroy: true,
+    language: {     
+        lengthMenu: "Mostrar _MENU_ registros por página", 
+        zeroRecords: "Ningún registro coincide con tu búsqueda",
+        info: "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros", 
+        infoEmpty: "Ningún registro encontrado",
+        infoFiltered: "(filtrados desde _MAX_ registros totales)",
+        search: "Buscar:",
+        loadingRecords: "Cargando...",
+        paginate: {
+            first: "<i class='bx bxs-chevrons-left'></i>",
+            last: "<i class='bx bxs-chevrons-right' ></i>", 
+            next: "<i class='bx bxs-chevron-right'></i>", 
+            previous: "<i class='bx bxs-chevron-left' ></i>"
+        },
+        emptyTable: "No hay datos disponibles"
+    }
+};
+
 const initDataTable = async () => { 
     if (dataTableIsInitialized) {
         dataTableFiles.destroy();
         dataTableUsers.destroy();
+        dataTableHistorial.destroy();
     }
 
     // Mostrar datos de JSONPlaceholder
@@ -44,6 +73,7 @@ const initDataTable = async () => {
     
     dataTableFiles = $("#datatable_files").DataTable(dataTableOptions);
     dataTableUsers = $("#datatable_users").DataTable(dataTableOptions);
+    dataTableHistorial = $("#datatable_historial").DataTable(dataTableOptions2);
     
     // Inicializar datatable en true
     dataTableIsInitialized = true;
