@@ -2,31 +2,29 @@
 // ESTA LINEA DE CODIGO ES IMPORTANTE Y TIENE QUE USARSE
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Historial extends MY_Controller {
+class Finanza extends MY_Controller {
 
 	public function __construct(){	
 		parent::__construct();
-		$this->load->model('historial_model');
-		$this->load->model('clasificacion_model');
+		$this->load->model('finanza_model');
+		$this->load->model('sucursal_model');
 		date_default_timezone_set('America/Merida');
 	}
 
 	public function index()
 	{
-		$user_id = $this->session->userdata('user_id');
-		$idclassification = $this->input->get('clasificacion_id');
+		$idsucursal = $this->input->get('sucursal_id');
 		$start_date = $this->input->get('start_date');
 		$end_date = $this->input->get('end_date');
 
 		$mainData = [
-			'title' => 'Historial',
-			'content' => 'historial/index',
-			// 'files' => $this->historial_model->get_all_files(),
-			'files' => $this->historial_model->get_files_by_user($user_id, $idclassification, $start_date, $end_date),
-			'clasificaciones' => $this->clasificacion_model->get_classification_filter(), //Filtro
+			'title' => 'Finanza',
+			'content' => 'finanza/index',
+			'files' => $this->finanza_model->get_all_files($idsucursal, $start_date, $end_date),
+			'sucursales' => $this->sucursal_model->get_all_sucursal(), //Filtro
 
 			// Para mostra la opción seleccionada
-			'idclassification' => $idclassification,
+			'idsucursal' => $idsucursal,
 			'start_date' => $start_date,
     		'end_date' => $end_date,
  		];
@@ -46,19 +44,39 @@ class Historial extends MY_Controller {
 
 		$mainData = [
 			'title' => 'Detalles del Documento',
-			'content' => 'historial/show',
-			'file' => $this->historial_model->get_file_by_id_filter($id)
+			'content' => 'finanza/show',
+			'file' => $this->finanza_model->get_file_by_id_filter($id)
  		];
 
 		$this->load->view('templates/main', $mainData);
 	}
 
+	public function show_update($id){
+		// SI EL ROL NO ES ADMIN, NO PUEDE ACCEDER
+		// if($this->session->userdata('role') != 'admin'){
+		// 	show_error('No estás autorizado');
+		// }
+
+		$fileData = [
+			'commentary' => $this->input->post('comment'),
+			'status' => $this->input->post('status')
+
+		];
+
+		$this->finanza_model->update_file($id, $fileData);
+		$this->session->set_flashdata('success', 'Cambios guardados con éxito');
+		redirect('finanza');
+		
+		
+	}
+
+
 	public function upload()
 	{
 		$mainData = [
 			'title' => 'Nuevo Archivo',
-			'content' => 'historial/upload',
-			'clasificaciones' => $this->clasificacion_model->get_classification_filter()
+			'content' => 'finanza/upload',
+			'sucursales' => $this->sucursal_model->get_all_sucursal()
  		];
 
 		$this->load->view('templates/main', $mainData);
@@ -99,7 +117,7 @@ class Historial extends MY_Controller {
 			$this->session->set_flashdata('errors', 'Ocurrió un error al subir el archivo. Verifica que el archivo cumpla con todos los requisitos.');
 
 			// $this->session->set_flashdata('errors', $error);
-			redirect('historial/upload');
+			redirect('finanza/upload');
 
 			return;
 		}
@@ -111,7 +129,7 @@ class Historial extends MY_Controller {
 				'name' => $this->input->post('name'),
 				'file' => $data['file_name'],
 				'iduser' => $user_id,
-				'idclassification' => $this->input->post('clasificacion_id'),
+				'idclassification' => 5,
 				// 'idsucursal' => $this->input->post('sucursal_id'),
 				'idsucursal' => $idsucursal,
 				'description' => $this->input->post('description'),
@@ -119,9 +137,9 @@ class Historial extends MY_Controller {
 
 			];
 
-			$this->historial_model->save_file($fileData);
+			$this->finanza_model->save_file($fileData);
 			$this->session->set_flashdata('success', 'Archivo subido con éxito.');
-			redirect('historial');
+			redirect('finanza');
 
 		}
 	}
@@ -132,16 +150,16 @@ class Historial extends MY_Controller {
 		// 	show_error('No estás autorizado');
 		// }
 
-		// $historial = $this->historial_model->get_file_by_id($id);
-		// if($historial == null){
+		// $finanza = $this->finanza_model->get_file_by_id($id);
+		// if($finanza == null){
 		// 	show_404();
 		// }
 
 		$mainData = [
 			'title' => 'Modificar Datos del Documento',
-			'content' => 'historial/edit',
-			'file' => $this->historial_model->get_file_by_id($id),
-			'clasificaciones' => $this->clasificacion_model->get_classification_filter()
+			'content' => 'finanza/edit',
+			'file' => $this->finanza_model->get_file_by_id($id),
+			'sucursales' => $this->sucursal_model->get_all_sucursal()
  		];
 
 		$this->load->view('templates/main', $mainData);
@@ -168,7 +186,7 @@ class Historial extends MY_Controller {
 
 		$fileData = [
 			'name' => $this->input->post('name'),
-			'idclassification' => $this->input->post('clasificacion_id'),
+			'idclassification' => 5,
 			'description' => $this->input->post('description'),
 			// 'status' => $this->input->post('status')
 
@@ -182,13 +200,13 @@ class Historial extends MY_Controller {
 				$fileData['file'] = $data['file_name'];
 
 				// Elimina el archivo anterior
-				$oldFile = $this->historial_model->get_file_by_id($id);
+				$oldFile = $this->finanza_model->get_file_by_id($id);
 				if ($oldFile && file_exists('./uploads/' . $oldFile->file)) {
 					unlink('./uploads/' . $oldFile->file);
 				}
 			} else {
 				$this->session->set_flashdata('errors', 'Ocurrió un error al subir el archivo. Verifica que el archivo cumpla con todos los requisitos.');
-				redirect('historial/edit/' . $id);
+				redirect('finanza/edit/' . $id);
 				return;
 			}
 		}
@@ -197,9 +215,9 @@ class Historial extends MY_Controller {
 		// 	$fileData['file'] = $data['file_name'];
 		// }
 
-		$this->historial_model->update_file($id, $fileData);
+		$this->finanza_model->update_file($id, $fileData);
 		$this->session->set_flashdata('success', 'Información actualizada con éxito');
-		redirect('historial');
+		redirect('finanza');
 		
 		
 	}
@@ -212,13 +230,13 @@ class Historial extends MY_Controller {
 		// }
 
 		// Elimina el archivo
-		$oldFile = $this->historial_model->get_file_by_id($id);
+		$oldFile = $this->finanza_model->get_file_by_id($id);
 		if ($oldFile && file_exists('./uploads/' . $oldFile->file)) {
 			unlink('./uploads/' . $oldFile->file);
 		}
 		
-		$this->historial_model->delete_file($id);
-		redirect('historial');
+		$this->finanza_model->delete_file($id);
+		redirect('finanza');
 	}
 
 	

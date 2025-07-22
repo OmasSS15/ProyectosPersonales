@@ -38,6 +38,7 @@ class Archivero_model extends CI_Model {
         $this->db->join('users', 'users.id = files.iduser');
         $this->db->join('classification', 'classification.id = files.idclassification');
         $this->db->join('sucursales', 'sucursales.id = files.idsucursal');
+        $this->db->where('classification.status', 1);
         if ($idclassification) {
             $this->db->where('idclassification', $idclassification);
         }

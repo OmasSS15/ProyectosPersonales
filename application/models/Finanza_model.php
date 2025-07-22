@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Historial_model extends CI_Model {
+class Finanza_model extends CI_Model {
     public function __construct(){
         // CADA VEZ QUE SE LLAME EL CONSTRUCTOR VA IR ESTA LINEA
         parent::__construct();
@@ -9,22 +9,21 @@ class Historial_model extends CI_Model {
         $this->load->database();
     }
 
-    public function get_files_by_user($user_id, $idclassification, $start_date, $end_date){
+    public function get_all_files($idsucursal, $start_date, $end_date){
         $this->db->select(
-            'files.*, 
-            users.name as user_name, 
+            'files.*,
+            users.name as user_name,
             users.lastname as user_lastname,
-            classification.name as classification'
+            classification.name as classification,
+            sucursales.sucursal as sucursal'
         );
         $this->db->from('files');
         $this->db->join('users', 'users.id = files.iduser');
         $this->db->join('classification', 'classification.id = files.idclassification');
-
-        // Filtrar por usuario
-        $this->db->where('files.iduser', $user_id);
-
-        if ($idclassification) {
-            $this->db->where('idclassification', $idclassification);
+        $this->db->join('sucursales', 'sucursales.id = files.idsucursal');
+        $this->db->where('idclassification', 5);
+        if ($idsucursal) {
+            $this->db->where('files.idsucursal', $idsucursal);
         }
         if ($start_date && $end_date) {
             $this->db->where('DATE(files.created) >=', $start_date);
@@ -35,7 +34,6 @@ class Historial_model extends CI_Model {
             $this->db->where('DATE(files.created) <=', $end_date);
         }
         $query = $this->db->get();
-        // echo $this->db->last_query();
         return $query->result();
     }
 
