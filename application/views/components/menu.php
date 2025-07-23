@@ -35,33 +35,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </a>
                             </li>
                             <li class="sidebar-item mb-2">
-                                <a href="#" class="sidebar-link">
-                                   Tiendas 
+                                <a href="<?php echo base_url('sucursales'); ?>" class="sidebar-link">
+                                   Sucursales 
                                 </a>
                             </li>
                             <li class="sidebar-item mb-2">
                                 <a href="#" class="sidebar-link">
-                                   Jefe de Tienda 
+                                   Estados
                                 </a>
                             </li>
                             <li class="sidebar-item mb-2">
                                 <a href="#" class="sidebar-link">
-                                   Proveedores
+                                   Roles 
                                 </a>
                             </li>
                             <li class="sidebar-item mb-2">
                                 <a href="#" class="sidebar-link">
-                                   Supervisores
-                                </a>
-                            </li>
-                            <li class="sidebar-item mb-2">
-                                <a href="#" class="sidebar-link">
-                                   Unidades 
-                                </a>
-                            </li>
-                            <li class="sidebar-item mb-2">
-                                <a href="#" class="sidebar-link">
-                                   Insumos
+                                   Clasificación
                                 </a>
                             </li>
                         </ul>

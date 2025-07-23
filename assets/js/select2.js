@@ -21,6 +21,17 @@ $(document).ready(function() {
         width: '100%'
     });
 
+    $("#estado_filter").select2({
+        dropdownParent: $('#modal_filter'),
+        language: {
+            noResults: function(){
+                return "No hay resultado";
+            }
+        },
+        theme: 'bootstrap-5',
+        width: '100%'
+    });
+
     $("#clasificacion_file").select2({
         language: {
             noResults: function(){
@@ -52,6 +63,16 @@ $(document).ready(function() {
     });
 
     $("#status").select2({
+        language: {
+            noResults: function(){
+                return "No hay resultado";
+            }
+        },
+        theme: 'bootstrap-5',
+        width: '100%'
+    });
+
+    $("#select").select2({
         language: {
             noResults: function(){
                 return "No hay resultado";

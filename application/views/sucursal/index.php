@@ -26,14 +26,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="row align-items-center justify-content-between">
                             <div class="col-auto ms-3">
                                 <h3 class="mb-0 d-flex align-items-center">
-                                    <i class='bx bxs-user-circle fs-1 me-1'></i>
+                                    <i class='bx bxs-store fs-1 me-1'></i>
                                     <?php echo $title; ?>
                                 </h3>
                             </div>
                             <div class="col-auto d-flex gap-2 me-3">
-                                <a class="btn bg-btn rounded-start-pill shadow-sm d-flex align-items-center" href="<?php echo base_url('users/register'); ?>">
-                                    <i class='bx bxs-user-plus fs-4 me-1'></i>
-                                    Registrar Usuario
+                                <a class="btn bg-btn rounded-start-pill shadow-sm d-flex align-items-center" href="<?php echo base_url('sucursales/create'); ?>">
+                                    <i class='bx bxs-plus-circle fs-4 me-1'></i>
+                                    Añadir Sucursal
                                 </a>
                                 <a class="btn bg-btn rounded-end-pill shadow-sm d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal_filter">
                                     <i class='bx bxs-filter-alt fs-4 me-1' ></i>
@@ -44,14 +44,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="datatable_users" class="table table-striped table-hover text-center">
+                            <table id="datatable_sucursales" class="table table-striped table-hover text-center">
                                 <thead>
                                     <tr>
                                         <th class="text-center" scope="col">#</th>
-                                        <th class="text-center" scope="col">Nombre</th>
-                                        <th class="text-center" scope="col">Correo Electrónico</th>
-                                        <th class="text-center" scope="col">Puesto</th>
                                         <th class="text-center" scope="col">Sucursal</th>
+                                        <th class="text-center" scope="col">Lugar</th>
                                         <th class="text-center" scope="col">Fecha</th>
                                         <th class="text-center" scope="col">Hora</th>
                                         <th class="text-center" scope="col">Estado</th>
@@ -59,37 +57,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($users as $user): ?>
+                                    <?php foreach ($sucursales as $sucursal): ?>
                                         <tr>
-                                            <th class="text-center" scope="row"><?php echo $user->id; ?></th>
-                                            <td class="text-center"><?php echo $user->user_name . ' ' . $user->user_lastname; ?></td>
-                                            <td class="text-center"><?php echo $user->email; ?></td>
-                                            <td class="text-center"><?php echo $user->rol; ?></td>
-                                            <td class="text-center"><?php echo $user->sucursal; ?></td>
-                                            <?php $datetime = new DateTime($user->created); ?>
+                                            <th class="text-center" scope="row"><?php echo $sucursal->id; ?></th>
+                                            <td class="text-center"><?php echo $sucursal->sucursal; ?></td>
+                                            <td class="text-center"><?php echo $sucursal->estado; ?></td>
+                                            <?php $datetime = new DateTime($sucursal->created); ?>
                                             <td class="text-center"><?= $datetime->format('Y/m/d') ?></td>
                                             <td class="text-center"><?= $datetime->format('h:i A') ?></td>
-                                            <?php if($user->status == 1): ?>
+                                            <?php if($sucursal->status == 1): ?>
                                                 <td class="text-center"><i class='bx bxs-check-circle fs-5' style="color: green;" ></i></td>
-                                            <?php elseif($user->status == 2): ?>
-                                                <td class="text-center"><i class='bx bxs-time fs-5' style="color: #FFB300;" ></i></td>
                                             <?php else: ?>
                                                 <td class="text-center"><i class='bx bxs-x-circle fs-5' style="color:rgb(187, 17, 17)" ></i></td>
                                             <?php endif; ?>
                                             <td>
                                                 <div class="d-flex justify-content-center align-items-center gap-1">
-                                                    <a class="btn btn-primary" href="<?= base_url('users/show/' . $user->id); ?>">
+                                                    <a class="btn btn-primary" href="<?= base_url('sucursales/show/' . $sucursal->id); ?>">
                                                         <i class='bx bxs-show'></i>
                                                     </a>
-                                                    <a class="btn btn-warning" href="<?= base_url('users/edit/' . $user->id); ?>">
+                                                    <a class="btn btn-warning" href="<?= base_url('sucursales/edit/' . $sucursal->id); ?>">
                                                         <i class='bx bxs-edit'></i>
                                                     </a>
-                                                    <?php if($user->status == 0): ?>
-                                                        <a class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#modal_delete_<?= $user->id; ?>">
+                                                    <?php if($sucursal->status == 0): ?>
+                                                        <a class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#modal_delete_<?= $sucursal->id; ?>">
                                                             <i class='bx bxs-trash'></i>
                                                         </a>
                                                         <!-- Modal Delete -->
-                                                        <div class="modal fade" id="modal_delete_<?= $user->id; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                        <div class="modal fade" id="modal_delete_<?= $sucursal->id; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                             <div class="modal-dialog modal-dialog-centered modal-sm">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header text-white justify-content-center py-3">
@@ -99,13 +93,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                         </h1>
                                                                     </div>
                                                                     <div class="modal-body text-center py-4 px-3">
-                                                                        Esta acción eliminará permanentemente al usuario llamado <strong><?= $user->user_name . ' ' . $user->user_lastname; ?></strong>. ¿Deseas continuar?
+                                                                        Esta acción eliminará permanentemente la sucursal <strong><?= $sucursal->sucursal; ?></strong>. ¿Deseas continuar?
                                                                     </div>
                                                                     <div class="modal-footer d-flex justify-content-center gap-2">
                                                                         <button type="button" class="btn btn btn-outline-modal d-flex align-items-center" data-bs-dismiss="modal">
                                                                             <i class='bx bxs-x-circle fs-5 me-1'></i>Cancelar
                                                                         </button>
-                                                                        <a href="<?= base_url('users/delete/' . $user->id); ?>" class="btn btn-modal d-flex align-items-center">
+                                                                        <a href="<?= base_url('sucursales/delete/' . $sucursal->id); ?>" class="btn btn-modal d-flex align-items-center">
                                                                             <i class='bx bxs-check-circle fs-5 me-1'></i>Confirmar
                                                                         </a>  
                                                                     </div>       
@@ -147,29 +141,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <button type="button" class="btn d-flex align-items-center ms-auto" data-bs-dismiss="modal" aria-label="Close"><i class='bx bx-x fs-3' style="color: white;"></i></button>
                 </div>
                 <div class="modal-body">
-                    <form class="row g-3" method="GET" action="<?php echo base_url('users') ?>">
+                    <form class="row g-3" method="GET" action="<?php echo base_url('sucursales') ?>">
                         <div class="col-md-6">
-                            <label for="sucursal_file" class="form-label">Sucursal</label>
-                            <select class="form-select" id="sucursal" name="sucursal_id">
+                            <label for="estado" class="form-label">Lugar</label>
+                            <select class="form-select" id="estado_filter" name="estado_id">
                                 <option value="" selected disabled>Seleccionar</option>
-                                <?php foreach ($sucursales as $sucursal): ?>
+                                <?php foreach ($estados as $estado): ?>
                                     <!-- ?= ... es la abreviatura de php echo ...  -->
-                                    <option value="<?= $sucursal->id ?>"
-                                        <?= ($idsucursal == $sucursal->id) ? 'selected' : '' ?>>
-                                        <?= $sucursal->sucursal ?>
-                                    </option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="rol" class="form-label">Cargo</label>
-                            <select class="form-select" id="rol" name="rol_id">
-                                <option value="" selected disabled>Seleccionar</option>
-                                <?php foreach ($roles as $rol): ?>
-                                    <!-- ?= ... es la abreviatura de php echo ...  -->
-                                    <option value="<?= $rol->id ?>"
-                                        <?= ($idrol == $rol->id) ? 'selected' : '' ?>>
-                                        <?= $rol->rol ?>
+                                    <option value="<?= $estado->id ?>"
+                                        <?= ($idestado == $estado->id) ? 'selected' : '' ?>>
+                                        <?= $estado->estado ?>
                                     </option>
                                 <?php endforeach ?>
                             </select>
@@ -183,7 +164,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <input type="text" class="form-control" id="end_date" name="end_date" value="<?= isset($end_date) ? $end_date : '' ?>" placeholder="Seleccionar fecha">
                         </div>
                         <div class="modal-footer">
-                            <a href="<?php echo base_url('users') ?>" class="btn btn btn-outline-modal d-flex align-items-center">
+                            <a href="<?php echo base_url('sucursales') ?>" class="btn btn btn-outline-modal d-flex align-items-center">
                                 <i class='bx bxs-eraser fs-5 me-1'></i>Limpiar
                             </a>
                             <button type="submit" class="btn btn-modal d-flex align-items-center">

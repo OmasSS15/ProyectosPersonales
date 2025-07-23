@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Sucursal_model extends CI_Model {
+class Estado_model extends CI_Model {
     public function __construct(){
         // CADA VEZ QUE SE LLAME EL CONSTRUCTOR VA IR ESTA LINEA
         parent::__construct();
@@ -9,9 +9,9 @@ class Sucursal_model extends CI_Model {
         $this->load->database();
     }
 
-    public function get_all_sucursal() {
+    public function get_all_estado() {
         // MUESTRA TODA LA LISTA DE LOS REGISTROS DE LA TABLA
-        $query = $this->db->get('sucursales');
+        $query = $this->db->get('estados');
         // LOS DATOS SE RETORNAN EN FORMA DE OBJETO
         return $query->result();
     }
@@ -40,31 +40,5 @@ class Sucursal_model extends CI_Model {
         // echo $this->db->last_query();
         return $query->result();
     }
-
-    public function get_sucursal_by_id($id) {
-         $this->db->select(
-            'sucursales.*,
-            estados.estado'
-        );
-        $this->db->from('sucursales');
-        $this->db->join('estados', 'estados.id = sucursales.idestado');
-        $this->db->where('sucursales.id', $id);
-        $query = $this->db->get();
-        return $query->row(); 
-    }
 	
-    public function save_sucursal($sucursalData){
-        //NOS PERMITE AÑADIR NUEVOS REGISTROS
-        $this->db->insert('sucursales', $sucursalData);
-    }
-
-    public function update_sucursal($id, $sucursalData){
-        // PARA ACTUALIZAR LOS REGISTROS
-        $this->db->update('sucursales', $sucursalData, ['id' => $id]);
-    }
-
-    public function delete_sucursal($id){
-        $this->db->delete('sucursales', ['id' => $id]);
-    }
-
 }
