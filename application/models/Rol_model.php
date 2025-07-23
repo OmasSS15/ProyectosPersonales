@@ -16,5 +16,24 @@ class Rol_model extends CI_Model {
         return $query->result();
     }
 	
+	public function get_rol_by_id($id) {
+        // PRIMERO SE COLOCA LA TABLA Y LUEGO EL ID
+        $query = $this->db->get_where('roles', ['id' => $id]);
+        return $query->row(); // SE RETORNA A LA FILA QUE SE VA A MOSTRAR
+    }
 	
+    public function save_rol($rolData){
+        //NOS PERMITE AÑADIR NUEVOS REGISTROS
+        $this->db->insert('roles', $rolData);
+    }
+
+    public function update_rol($id, $rolData){
+        // PARA ACTUALIZAR LOS REGISTROS
+        $this->db->update('roles', $rolData, ['id' => $id]);
+    }
+
+    public function delete_rol($id){
+        $this->db->delete('roles', ['id' => $id]);
+    }
+
 }

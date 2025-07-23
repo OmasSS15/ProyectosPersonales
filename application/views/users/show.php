@@ -44,24 +44,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <td><?php echo $user->email; ?></td>
                             </tr>
                             <tr>
-                                <th>Contraseña:</th>
-                                <td><?php echo $user->password; ?></td>
-                            </tr>
-                            <tr>
                                 <th>Cargo:</th>
                                 <td><?php echo $user->rol; ?></td>
                             </tr>
                             <tr>
                                 <th>Sucursal:</th>
                                 <td><?php echo $user->sucursal; ?></td>
-                            </tr>
-                            <tr>
-                                <th>Fecha y Hora del Registro:</th>
-                                <td><?php echo (new DateTime($user->created))->format('Y/m/d h:i A'); ?></td>
-                            </tr>
-                            <tr>
-                                <th>Última Modificación:</th>
-                                <td><?php echo (new DateTime($user->updated))->format('Y/m/d h:i A'); ?></td>
                             </tr>
                             <tr>
                                 <th>Estado:</th>
@@ -72,6 +60,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <i class='bx bxs-x-circle fs-5 me-1 text-danger'></i>Inactivo
                                     <?php endif; ?>
                                 </td>
+                            </tr>
+                            <tr>
+                                <th>Fecha y Hora del Registro:</th>
+                                <td><?php echo (new DateTime($user->created))->format('Y/m/d h:i A'); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Última Modificación:</th>
+                                <td><?php echo (new DateTime($user->updated))->format('Y/m/d h:i A'); ?></td>
                             </tr>
                         </tbody>
                     </table>

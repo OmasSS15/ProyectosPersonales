@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     <div class="col-md-6">
                         <label for="rol" class="form-label">Cargo</label>
-                        <select class="form-select" id="rol" name="rol_id" required>
+                        <select class="form-select" id="select" name="rol_id" required>
                             <option value="" selected disabled>Seleccionar</option>
                             <?php foreach ($roles as $rol): ?>
                                 <!-- ?= ... es la abreviatura de php echo ...  -->

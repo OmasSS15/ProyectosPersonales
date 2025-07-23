@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?php echo base_url('home'); ?>">Inicio</a></li>
-                <li class="breadcrumb-item"><a href="<?php echo base_url('estados'); ?>">Catálogo de Estados</a></li>
+                <li class="breadcrumb-item"><a href="<?php echo base_url('roles'); ?>">Catálogo de Roles</a></li>
                 <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
             </ol>
         </nav>
@@ -25,27 +25,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="row align-items-center justify-content-between">
                     <div class="col-auto ms-3">
                         <h3 class="mb-0 d-flex align-items-center">
-                            <i class='bx bxs-map fs-1 me-1'></i>
+                            <i class='bx bxs-extension fs-1 me-1'></i>
                             <?php echo $title; ?>
                         </h3>
                     </div>
                 </div>
             </div>
             <div class="card-body">
-                <form action="<?php echo base_url('estados/store'); ?>" method="post" enctype="multipart/form-data" class="row g-3">
-                    <div class="col-md-6">
-                        <label for="name" class="form-label">Lugar</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Ingresa un nombre..." required>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="abrev" class="form-label">Abreviatura</label>
-                        <input type="text" class="form-control" id="abrev" name="abrev" placeholder="Ingresa una abreviación..." required>
+                <form action="<?php echo base_url('roles/store'); ?>" method="post" enctype="multipart/form-data" class="row g-3">
+                    <div class="col-md-12">
+                        <label for="rol" class="form-label">Cargo</label>
+                        <input type="text" class="form-control" id="rol" name="rol" placeholder="Ingresa un nombre..." required>
                     </div>
 
                     <div class="col-12">
                         <button type="submit" class="btn btn-modal d-flex align-items-center ms-auto">
-                            <i class='bx bxs-send fs-5 me-1'></i> Añadir Sucursal
+                            <i class='bx bxs-send fs-5 me-1'></i> Añadir Rol
                         </button>
                     </div>
                 </form>

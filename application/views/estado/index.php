@@ -117,54 +117,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- </div> -->
     </div>
 
-    <!-- Modal Filter -->
-    <div class="modal fade" id="modal_filter" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-header text-white py-3">
-                    <h1 class="modal-title d-flex align-items-center fs-5" id="staticBackdropLabel">
-                        <i class='bx bxs-filter-alt fs-4 me-1' ></i>
-                        Filtros
-                    </h1>
-                    <button type="button" class="btn d-flex align-items-center ms-auto" data-bs-dismiss="modal" aria-label="Close"><i class='bx bx-x fs-3' style="color: white;"></i></button>
-                </div>
-                <div class="modal-body">
-                    <form class="row g-3" method="GET" action="<?php echo base_url('estados') ?>">
-                        <div class="col-md-6">
-                            <label for="estado" class="form-label">Lugar</label>
-                            <select class="form-select" id="estado_filter" name="estado_id">
-                                <option value="" selected disabled>Seleccionar</option>
-                                <?php foreach ($estados as $estado): ?>
-                                    <!-- ?= ... es la abreviatura de php echo ...  -->
-                                    <option value="<?= $estado->id ?>"
-                                        <?= ($idestado == $estado->id) ? 'selected' : '' ?>>
-                                        <?= $estado->estado ?>
-                                    </option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="start_date" class="form-label">Desde</label>
-                            <input type="text" class="form-control" id="start_date" name="start_date" value="<?= isset($start_date) ? $start_date : '' ?>" placeholder="Seleccionar fecha">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="end_date" class="form-label">Hasta</label>
-                            <input type="text" class="form-control" id="end_date" name="end_date" value="<?= isset($end_date) ? $end_date : '' ?>" placeholder="Seleccionar fecha">
-                        </div>
-                        <div class="modal-footer">
-                            <a href="<?php echo base_url('estados') ?>" class="btn btn btn-outline-modal d-flex align-items-center">
-                                <i class='bx bxs-eraser fs-5 me-1'></i>Limpiar
-                            </a>
-                            <button type="submit" class="btn btn-modal d-flex align-items-center">
-                                <i class='bx bx-search fs-5 me-1'></i>Aplicar
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                
-            </div>
-        </div>
-    </div>
 
     
 </div>
