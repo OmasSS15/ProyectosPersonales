@@ -4,118 +4,65 @@ let dataTableFiles2;
 let dataTableUsers;
 let dataTableHistorial;
 let dataTableSucursal;
+let dataTableEstado;
 // Inicializar datatable en false
 let dataTableIsInitialized = false;
 
 $.fn.dataTable.ext.pager.numbers_length = 3;
 // Configuracion del DataTable
-const dataTableOptions = {
-    // scrollX: "500px",
-    // searching: false,
-    columnDefs: [
-        { orderable: false, targets:[1, 2, 3, 4, 7, 8]},
-        { searchable: false, targets:[0, 5, 6, 7, 8]}
-    ],
-    pageLength: 5,
-    destroy: true,
-    language: {     
-        lengthMenu: "Mostrar _MENU_ registros por página", 
-        zeroRecords: "Ningún registro coincide con tu búsqueda",
-        info: "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros", 
-        infoEmpty: "Ningún registro encontrado",
-        infoFiltered: "(filtrados desde _MAX_ registros totales)",
-        search: "Buscar:",
-        loadingRecords: "Cargando...",
-        paginate: {
-            first: "<i class='bx bxs-chevrons-left'></i>",
-            last: "<i class='bx bxs-chevrons-right' ></i>", 
-            next: "<i class='bx bxs-chevron-right'></i>", 
-            previous: "<i class='bx bxs-chevron-left' ></i>"
-        },
-        emptyTable: "No hay datos disponibles"
-    }
-};
+function getDataTableOptions(customDefs = {}) {
+    return {
+        // scrollX: "500px",
+        // searching: false,
+        columnDefs: [
+            { orderable: false, targets: customDefs.orderable || [] },
+            { searchable: false, targets: customDefs.searchable || [] }
+        ],
+        pageLength: 5,
+        destroy: true,
+        language: {     
+            lengthMenu: "Mostrar _MENU_ registros por página", 
+            zeroRecords: "Ningún registro coincide con tu búsqueda",
+            info: "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros", 
+            infoEmpty: "Ningún registro encontrado",
+            infoFiltered: "(filtrados desde _MAX_ registros totales)",
+            search: "Buscar:",
+            loadingRecords: "Cargando...",
+            paginate: {
+                first: "<i class='bx bxs-chevrons-left'></i>",
+                last: "<i class='bx bxs-chevrons-right'></i>", 
+                next: "<i class='bx bxs-chevron-right'></i>", 
+                previous: "<i class='bx bxs-chevron-left'></i>"
+            },
+            emptyTable: "No hay datos disponibles"
+        }
+    };
+}
 
-const dataTableOptions2 = {
-    // scrollX: "500px",
-    // searching: false,
-    columnDefs: [
-        { orderable: false, targets:[1, 2, 5, 6]},
-        { searchable: false, targets:[0, 3, 4, 6]}
-    ],
-    pageLength: 5,
-    destroy: true,
-    language: {     
-        lengthMenu: "Mostrar _MENU_ registros por página", 
-        zeroRecords: "Ningún registro coincide con tu búsqueda",
-        info: "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros", 
-        infoEmpty: "Ningún registro encontrado",
-        infoFiltered: "(filtrados desde _MAX_ registros totales)",
-        search: "Buscar:",
-        loadingRecords: "Cargando...",
-        paginate: {
-            first: "<i class='bx bxs-chevrons-left'></i>",
-            last: "<i class='bx bxs-chevrons-right' ></i>", 
-            next: "<i class='bx bxs-chevron-right'></i>", 
-            previous: "<i class='bx bxs-chevron-left' ></i>"
-        },
-        emptyTable: "No hay datos disponibles"
-    }
-};
+const dataTableOptions = getDataTableOptions({
+    orderable: [1, 2, 3, 4, 7, 8],
+    searchable: [0, 5, 6, 7, 8]
+});
 
-const dataTableOptions3 = {
-    // scrollX: "500px",
-    // searching: false,
-    columnDefs: [
-        { orderable: false, targets:[1, 2, 3, 6, 7]},
-        { searchable: false, targets:[0, 4, 5, 6, 7]}
-    ],
-    pageLength: 5,
-    destroy: true,
-    language: {     
-        lengthMenu: "Mostrar _MENU_ registros por página", 
-        zeroRecords: "Ningún registro coincide con tu búsqueda",
-        info: "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros", 
-        infoEmpty: "Ningún registro encontrado",
-        infoFiltered: "(filtrados desde _MAX_ registros totales)",
-        search: "Buscar:",
-        loadingRecords: "Cargando...",
-        paginate: {
-            first: "<i class='bx bxs-chevrons-left'></i>",
-            last: "<i class='bx bxs-chevrons-right' ></i>", 
-            next: "<i class='bx bxs-chevron-right'></i>", 
-            previous: "<i class='bx bxs-chevron-left' ></i>"
-        },
-        emptyTable: "No hay datos disponibles"
-    }
-};
+const dataTableOptions2 = getDataTableOptions({
+    orderable: [1, 2, 5, 6],
+    searchable: [0, 3, 4, 6]
+});
 
-const dataTableOptions4 = {
-    // scrollX: "500px",
-    // searching: false,
-    columnDefs: [
-        { orderable: false, targets:[1, 2, 5, 6]},
-        { searchable: false, targets:[0, 4, 5, 6]}
-    ],
-    pageLength: 5,
-    destroy: true,
-    language: {     
-        lengthMenu: "Mostrar _MENU_ registros por página", 
-        zeroRecords: "Ningún registro coincide con tu búsqueda",
-        info: "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros", 
-        infoEmpty: "Ningún registro encontrado",
-        infoFiltered: "(filtrados desde _MAX_ registros totales)",
-        search: "Buscar:",
-        loadingRecords: "Cargando...",
-        paginate: {
-            first: "<i class='bx bxs-chevrons-left'></i>",
-            last: "<i class='bx bxs-chevrons-right' ></i>", 
-            next: "<i class='bx bxs-chevron-right'></i>", 
-            previous: "<i class='bx bxs-chevron-left' ></i>"
-        },
-        emptyTable: "No hay datos disponibles"
-    }
-};
+const dataTableOptions3 = getDataTableOptions({
+    orderable: [1, 2, 3, 6, 7],
+    searchable: [0, 4, 5, 6, 7]
+});
+
+const dataTableOptions4 = getDataTableOptions({
+    orderable: [1, 2, 5, 6],
+    searchable: [0, 4, 5, 6]
+});
+
+const dataTableOptions5 = getDataTableOptions({
+    orderable: [1, 2, 3, 4],
+    searchable: [0, 3, 4]
+});
 
 const initDataTable = async () => { 
     if (dataTableIsInitialized) {
@@ -124,6 +71,7 @@ const initDataTable = async () => {
         dataTableUsers.destroy();
         dataTableHistorial.destroy();
         dataTableSucursal.destroy();
+        dataTableEstado.destroy();
     }
 
     // Mostrar datos de JSONPlaceholder
@@ -134,6 +82,7 @@ const initDataTable = async () => {
     dataTableUsers = $("#datatable_users").DataTable(dataTableOptions);
     dataTableHistorial = $("#datatable_historial").DataTable(dataTableOptions2);
     dataTableSucursal = $("#datatable_sucursales").DataTable(dataTableOptions4);
+    dataTableEstado = $("#datatable_estados").DataTable(dataTableOptions5);
     
     // Inicializar datatable en true
     dataTableIsInitialized = true;

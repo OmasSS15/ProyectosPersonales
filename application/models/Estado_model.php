@@ -15,30 +15,33 @@ class Estado_model extends CI_Model {
         // LOS DATOS SE RETORNAN EN FORMA DE OBJETO
         return $query->result();
     }
-	
-    public function get_sucursal_filter($idestado, $start_date, $end_date) {
+
+    public function get_estado_filter() {
         // MUESTRA TODA LA LISTA DE LOS REGISTROS DE LA TABLA
-        $this->db->select(
-            'sucursales.*,
-            estados.estado'
-        );
-        $this->db->from('sucursales');
-        $this->db->join('estados', 'estados.id = sucursales.idestado');
-        if ($idestado) {
-            $this->db->where('idestado', $idestado);
-        }
-        if ($start_date && $end_date) {
-            $this->db->where('DATE(sucursales.created) >=', $start_date);
-            $this->db->where('DATE(sucursales.created) <=', $end_date);
-        } elseif ($start_date) {
-            $this->db->where('DATE(sucursales.created) >=', $start_date);
-        } elseif ($end_date) {
-            $this->db->where('DATE(sucursales.created) <=', $end_date);
-        }
-        $query = $this->db->get();
+        $this->db->where('status', 1);
+        $query = $this->db->get('estados');
         // LOS DATOS SE RETORNAN EN FORMA DE OBJETO
-        // echo $this->db->last_query();
         return $query->result();
+    }
+	
+    public function get_estado_by_id($id) {
+        // PRIMERO SE COLOCA LA TABLA Y LUEGO EL ID
+        $query = $this->db->get_where('estados', ['id' => $id]);
+        return $query->row(); // SE RETORNA A LA FILA QUE SE VA A MOSTRAR
+    }
+	
+    public function save_estado($estadoData){
+        //NOS PERMITE AÑADIR NUEVOS REGISTROS
+        $this->db->insert('estados', $estadoData);
+    }
+
+    public function update_estado($id, $estadoData){
+        // PARA ACTUALIZAR LOS REGISTROS
+        $this->db->update('estados', $estadoData, ['id' => $id]);
+    }
+
+    public function delete_estado($id){
+        $this->db->delete('estados', ['id' => $id]);
     }
 	
 }

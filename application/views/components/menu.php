@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </a>
                             </li>
                             <li class="sidebar-item mb-2">
-                                <a href="#" class="sidebar-link">
+                                <a href="<?php echo base_url('estados'); ?>" class="sidebar-link">
                                    Estados
                                 </a>
                             </li>

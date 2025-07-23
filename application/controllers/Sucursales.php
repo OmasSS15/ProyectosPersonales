@@ -21,7 +21,7 @@ class Sucursales extends MY_Controller {
 			'title' => 'Catálogo de Sucursales',
 			'content' => 'sucursal/index',
 			'sucursales' => $this->sucursal_model->get_sucursal_filter($idestado, $start_date, $end_date),
-			'estados' => $this->estado_model->get_all_estado(),
+			'estados' => $this->estado_model->get_estado_filter(),
 
 			// Para mostra la opción seleccionada
 			'idestado' => $idestado,
@@ -74,7 +74,7 @@ class Sucursales extends MY_Controller {
 		$mainData = [
 			'title' => 'Nueva Sucursal',
 			'content' => 'sucursal/create',
-            'estados' => $this->estado_model->get_all_estado(),
+            'estados' => $this->estado_model->get_estado_filter(),
  		];
 
 		$this->load->view('templates/main', $mainData);
@@ -118,7 +118,7 @@ class Sucursales extends MY_Controller {
 			'title' => 'Modificar Datos de la Sucursal',
 			'content' => 'sucursal/edit',
 			'sucursal' => $this->sucursal_model->get_sucursal_by_id($id),
-			'estados' => $this->estado_model->get_all_estado()
+			'estados' => $this->estado_model->get_estado_filter()
 
  		];
 
