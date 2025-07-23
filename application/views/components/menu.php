@@ -79,9 +79,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </a>
                     </li> 
                     <li class="sidebar-item px-2">
-                        <a href="<?php echo base_url('finanza'); ?>" class="sidebar-link">
+                        <a href="<?php echo base_url('mantenimiento'); ?>" class="sidebar-link">
                             <i class='bx bxs-cog' ></i>
-                            <span>Soporte Técnico</span>
+                            <span>Mantenimiento</span>
                         </a>
                     </li>  
                     <li class="sidebar-item px-2">
