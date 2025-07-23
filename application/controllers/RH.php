@@ -2,11 +2,11 @@
 // ESTA LINEA DE CODIGO ES IMPORTANTE Y TIENE QUE USARSE
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Finanza extends MY_Controller {
+class RH extends MY_Controller {
 
 	public function __construct(){	
 		parent::__construct();
-		$this->load->model('finanza_model');
+		$this->load->model('rh_model');
 		$this->load->model('sucursal_model');
 		date_default_timezone_set('America/Merida');
 	}
@@ -18,9 +18,9 @@ class Finanza extends MY_Controller {
 		$end_date = $this->input->get('end_date');
 
 		$mainData = [
-			'title' => 'Finanza',
-			'content' => 'finanza/index',
-			'files' => $this->finanza_model->get_all_files($idsucursal, $start_date, $end_date),
+			'title' => 'Recursos Humanos',
+			'content' => 'rh/index',
+			'files' => $this->rh_model->get_all_files($idsucursal, $start_date, $end_date),
 			'sucursales' => $this->sucursal_model->get_all_sucursal(), //Filtro
 
 			// Para mostra la opción seleccionada
@@ -44,8 +44,8 @@ class Finanza extends MY_Controller {
 
 		$mainData = [
 			'title' => 'Detalles del Documento',
-			'content' => 'finanza/show',
-			'file' => $this->finanza_model->get_file_by_id_filter($id)
+			'content' => 'rh/show',
+			'file' => $this->rh_model->get_file_by_id_filter($id)
  		];
 
 		$this->load->view('templates/main', $mainData);
@@ -63,9 +63,9 @@ class Finanza extends MY_Controller {
 
 		];
 
-		$this->finanza_model->update_file($id, $fileData);
+		$this->rh_model->update_file($id, $fileData);
 		$this->session->set_flashdata('success', 'Cambios guardados con éxito');
-		redirect('finanza');
+		redirect('rh');
 		
 		
 	}
@@ -75,7 +75,7 @@ class Finanza extends MY_Controller {
 	{
 		$mainData = [
 			'title' => 'Nuevo Archivo',
-			'content' => 'finanza/upload',
+			'content' => 'rh/upload',
 			'sucursales' => $this->sucursal_model->get_all_sucursal()
  		];
 
@@ -117,7 +117,7 @@ class Finanza extends MY_Controller {
 			$this->session->set_flashdata('errors', 'Ocurrió un error al subir el archivo. Verifica que el archivo cumpla con todos los requisitos.');
 
 			// $this->session->set_flashdata('errors', $error);
-			redirect('finanza/upload');
+			redirect('rh/upload');
 
 			return;
 		}
@@ -129,7 +129,7 @@ class Finanza extends MY_Controller {
 				'name' => $this->input->post('name'),
 				'file' => $data['file_name'],
 				'iduser' => $user_id,
-				'idclassification' => 5,
+				'idclassification' => 4,
 				// 'idsucursal' => $this->input->post('sucursal_id'),
 				'idsucursal' => $idsucursal,
 				'description' => $this->input->post('description'),
@@ -137,9 +137,9 @@ class Finanza extends MY_Controller {
 
 			];
 
-			$this->finanza_model->save_file($fileData);
+			$this->rh_model->save_file($fileData);
 			$this->session->set_flashdata('success', 'Archivo subido con éxito.');
-			redirect('finanza');
+			redirect('rh');
 
 		}
 	}
@@ -150,15 +150,15 @@ class Finanza extends MY_Controller {
 		// 	show_error('No estás autorizado');
 		// }
 
-		// $finanza = $this->finanza_model->get_file_by_id($id);
-		// if($finanza == null){
+		// $rh = $this->rh_model->get_file_by_id($id);
+		// if($rh == null){
 		// 	show_404();
 		// }
 
 		$mainData = [
 			'title' => 'Modificar Datos del Documento',
-			'content' => 'finanza/edit',
-			'file' => $this->finanza_model->get_file_by_id($id),
+			'content' => 'rh/edit',
+			'file' => $this->rh_model->get_file_by_id($id),
 			'sucursales' => $this->sucursal_model->get_all_sucursal()
  		];
 
@@ -199,13 +199,13 @@ class Finanza extends MY_Controller {
 				$fileData['file'] = $data['file_name'];
 
 				// Elimina el archivo anterior
-				$oldFile = $this->finanza_model->get_file_by_id($id);
+				$oldFile = $this->rh_model->get_file_by_id($id);
 				if ($oldFile && file_exists('./uploads/' . $oldFile->file)) {
 					unlink('./uploads/' . $oldFile->file);
 				}
 			} else {
 				$this->session->set_flashdata('errors', 'Ocurrió un error al subir el archivo. Verifica que el archivo cumpla con todos los requisitos.');
-				redirect('finanza/edit/' . $id);
+				redirect('rh/edit/' . $id);
 				return;
 			}
 		}
@@ -214,9 +214,9 @@ class Finanza extends MY_Controller {
 		// 	$fileData['file'] = $data['file_name'];
 		// }
 
-		$this->finanza_model->update_file($id, $fileData);
+		$this->rh_model->update_file($id, $fileData);
 		$this->session->set_flashdata('success', 'Información actualizada con éxito');
-		redirect('finanza');
+		redirect('rh');
 		
 		
 	}
@@ -229,13 +229,13 @@ class Finanza extends MY_Controller {
 		// }
 
 		// Elimina el archivo
-		$oldFile = $this->finanza_model->get_file_by_id($id);
+		$oldFile = $this->rh_model->get_file_by_id($id);
 		if ($oldFile && file_exists('./uploads/' . $oldFile->file)) {
 			unlink('./uploads/' . $oldFile->file);
 		}
 		
-		$this->finanza_model->delete_file($id);
-		redirect('finanza');
+		$this->rh_model->delete_file($id);
+		redirect('rh');
 	}
 
 	

@@ -67,9 +67,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </ul>
                     </li>
                     <li class="sidebar-item px-2">
+                        <a href="<?php echo base_url('rh'); ?>" class="sidebar-link">
+                            <i class='bx bxs-group'></i>
+                            <span>Recursos Humanos</span>
+                        </a>
+                    </li> 
+                    <li class="sidebar-item px-2">
                         <a href="<?php echo base_url('finanza'); ?>" class="sidebar-link">
                             <i class='bx bxs-coin-stack' ></i>
                             <span>Finanzas</span>
+                        </a>
+                    </li> 
+                    <li class="sidebar-item px-2">
+                        <a href="<?php echo base_url('finanza'); ?>" class="sidebar-link">
+                            <i class='bx bxs-cog' ></i>
+                            <span>Soporte Técnico</span>
                         </a>
                     </li>  
                     <li class="sidebar-item px-2">
