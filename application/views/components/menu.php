@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
                 <div class="d-flex justify-content-between p-4">
                     <div class="sidebar-logo">
-                        <a href="#"><img width="140" src="<?php echo base_url('assets/img/logoD.png'); ?>" alt="logo" style="margin: 0 1px 0" /></a>
+                        <a href="<?php echo base_url('home'); ?>"><img width="140" src="<?php echo base_url('assets/img/logoD.png'); ?>" alt="logo" style="margin: 0 1px 0" /></a>
                     </div>
                     <button class="toggle-btn border-0 ms-2" type="button">
                         <i id="icon" class='bx bx-chevrons-right'></i>

@@ -57,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </tr>
                             <tr>
                                 <th>Descripción:</th>
-                                <td><?php echo $file->description; ?></td>
+                                <td class="wrap-text"><?php echo $file->description; ?></td>
                             </tr>
                             <tr>
                                 <th>Archivo:</th>
@@ -66,14 +66,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <?php echo $file->file ?>
                                     </a>
                                 </td>
-                            </tr>
-                            <tr>
-                                <th>Fecha y Hora de Envío:</th>
-                                <td><?php echo (new DateTime($file->created))->format('Y/m/d h:i A'); ?></td>
-                            </tr>
-                            <tr>
-                                <th>Última Modificación:</th>
-                                <td><?php echo (new DateTime($file->updated))->format('Y/m/d h:i A'); ?></td>
                             </tr>
                             <tr>
                                 <th>Estado:</th>
@@ -86,6 +78,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <i class='bx bxs-x-circle fs-5 me-1 text-danger'></i>Inválido
                                     <?php endif; ?>
                                 </td>
+                            </tr>
+                            <tr>
+                                <th>Fecha y Hora de Envío:</th>
+                                <td><?php echo (new DateTime($file->created))->format('Y/m/d h:i A'); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Última Modificación:</th>
+                                <td><?php echo (new DateTime($file->updated))->format('Y/m/d h:i A'); ?></td>
                             </tr>
                             <tr>
                                 <th>Comentarios:</th>

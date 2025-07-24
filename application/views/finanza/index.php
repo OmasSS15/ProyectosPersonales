@@ -84,37 +84,39 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <a class="btn btn-primary" href="<?= base_url('finanza/show/' . $file->id); ?>">
                                                         <i class='bx bxs-show'></i>
                                                     </a>
-                                                    <a class="btn btn-warning" href="<?= base_url('finanza/edit/' . $file->id); ?>">
-                                                        <i class='bx bxs-edit'></i>
-                                                    </a>
-                                                    <?php if($file->status == 0): ?>
-                                                        <a class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#modal_delete_<?= $file->id; ?>">
-                                                            <i class='bx bxs-trash'></i>
+                                                    <?php if($file->iduser == $this->session->userdata('user_id')): ?>
+                                                        <a class="btn btn-warning" href="<?= base_url('finanza/edit/' . $file->id); ?>">
+                                                            <i class='bx bxs-edit'></i>
                                                         </a>
-                                                         <!-- Modal Delete -->
-                                                        <div class="modal fade" id="modal_delete_<?= $file->id; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered modal-sm">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header text-white justify-content-center py-3">
-                                                                        <h1 class="modal-title d-flex align-items-center fs-5" id="staticBackdropLabel">
-                                                                            <i class='bx bxs-error fs-4 me-1' ></i>
-                                                                            Atención
-                                                                        </h1>
+                                                        <?php if($file->status != 1): ?>
+                                                            <a class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#modal_delete_<?= $file->id; ?>">
+                                                                <i class='bx bxs-trash'></i>
+                                                            </a>
+                                                            <!-- Modal Delete -->
+                                                            <div class="modal fade" id="modal_delete_<?= $file->id; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered modal-sm">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header text-white justify-content-center py-3">
+                                                                            <h1 class="modal-title d-flex align-items-center fs-5" id="staticBackdropLabel">
+                                                                                <i class='bx bxs-error fs-4 me-1' ></i>
+                                                                                Atención
+                                                                            </h1>
+                                                                        </div>
+                                                                        <div class="modal-body text-center py-4 px-3">
+                                                                            Esta acción eliminará permanentemente el documento llamado <strong><?= $file->name; ?></strong>. ¿Deseas continuar?
+                                                                        </div>
+                                                                        <div class="modal-footer d-flex justify-content-center gap-2">
+                                                                            <button type="button" class="btn btn btn-outline-modal d-flex align-items-center" data-bs-dismiss="modal">
+                                                                                <i class='bx bxs-x-circle fs-5 me-1'></i>Cancelar
+                                                                            </button>
+                                                                            <a href="<?= base_url('finanza/delete/' . $file->id); ?>" class="btn btn-modal d-flex align-items-center">
+                                                                                <i class='bx bxs-check-circle fs-5 me-1'></i>Confirmar
+                                                                            </a>  
+                                                                        </div>       
                                                                     </div>
-                                                                    <div class="modal-body text-center py-4 px-3">
-                                                                        Esta acción eliminará permanentemente el documento llamado <strong><?= $file->name; ?></strong>. ¿Deseas continuar?
-                                                                    </div>
-                                                                    <div class="modal-footer d-flex justify-content-center gap-2">
-                                                                        <button type="button" class="btn btn btn-outline-modal d-flex align-items-center" data-bs-dismiss="modal">
-                                                                            <i class='bx bxs-x-circle fs-5 me-1'></i>Cancelar
-                                                                        </button>
-                                                                        <a href="<?= base_url('finanza/delete/' . $file->id); ?>" class="btn btn-modal d-flex align-items-center">
-                                                                            <i class='bx bxs-check-circle fs-5 me-1'></i>Confirmar
-                                                                        </a>  
-                                                                    </div>       
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        <?php endif; ?>
                                                     <?php endif; ?>
                                                 </div>
                                             </td>

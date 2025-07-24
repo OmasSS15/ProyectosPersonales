@@ -85,7 +85,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <a class="btn btn-warning" href="<?= base_url('historial/edit/' . $file->id); ?>">
                                                         <i class='bx bxs-edit'></i>
                                                     </a>
-                                                    <?php if($file->status == 0): ?>
+                                                    <?php if($file->status != 1): ?>
                                                         <a class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#modal_delete_<?= $file->id; ?>">
                                                             <i class='bx bxs-trash'></i>
                                                         </a>

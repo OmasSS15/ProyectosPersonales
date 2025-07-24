@@ -82,3 +82,9 @@
 .table th {
     vertical-align: middle;
 }
+
+.wrap-text {
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-width: 250px;
+}

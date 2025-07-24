@@ -45,7 +45,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </tr>
                             <tr>
                                 <th>Dirección:</th>
-                                <td><?php echo $sucursal->address; ?></td>
+                                <td class="wrap-text"><?php echo $sucursal->address; ?></td>
                             </tr>
                             <tr>
                                 <th>Fecha y Hora del Registro:</th>

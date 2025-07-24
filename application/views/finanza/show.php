@@ -57,23 +57,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </tr>
                             <tr>
                                 <th>Descripción:</th>
-                                <td><?php echo $file->description; ?></td>
+                                <td class="wrap-text"><?php echo $file->description; ?></td>
                             </tr>
                             <tr>
                                 <th>Archivo:</th>
                                 <td>
-                                    <a href="<?= base_url('uploads/' . $file->file) ?>" target="_blank">
-                                        <?php echo $file->file ?>
-                                    </a>
+                                    <?php if(($file->iduser == $this->session->userdata('user_id')) || (in_array($this->session->userdata('idrol'), [1, 2])) || ($file->status == 1)): ?>
+                                        <a href="<?= base_url('uploads/' . $file->file) ?>" target="_blank">
+                                            <?= $file->file ?>
+                                        </a>
+                                    <?php else: ?>
+                                        <a style="pointer-events: none; color: gray; text-decoration: none;">
+                                            <?= $file->file ?>
+                                        </a>
+                                    <?php endif; ?>
                                 </td>
-                            </tr>
-                            <tr>
-                                <th>Fecha y Hora de Envío:</th>
-                                <td><?php echo (new DateTime($file->created))->format('Y/m/d h:i A'); ?></td>
-                            </tr>
-                            <tr>
-                                <th>Última Modificación:</th>
-                                <td><?php echo (new DateTime($file->updated))->format('Y/m/d h:i A'); ?></td>
                             </tr>
                             <tr>
                                 <th>Estado:</th>
@@ -88,35 +86,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </td>
                             </tr>
                             <tr>
+                                <th>Fecha y Hora de Envío:</th>
+                                <td><?php echo (new DateTime($file->created))->format('Y/m/d h:i A'); ?></td>
+                            </tr>
+                            <tr>
+                                <th>Última Modificación:</th>
+                                <td><?php echo (new DateTime($file->updated))->format('Y/m/d h:i A'); ?></td>
+                            </tr>
+                            <tr>
                                 <th>Comentarios:</th>
                                 <td><?php echo $file->commentary; ?></td>
                             </tr>
                         </tbody>
                     </table>
-                    <form method="post" action="<?php echo base_url('finanza/show_update/') . $file->id; ?>">
-                        <div class="row container g-3">
-                            <div class="col-md-6">
-                                <label for="status" class="form-label">Actualizar Estado:</label>
-                                <select name="status" id="status" class="form-select" required>
-                                    <option value="" disabled>Seleccionar</option>
-                                    <option value="2" <?= $file->status == '2' ? 'selected' : '' ?>>Pendiente</option>
-                                    <option value="1" <?= $file->status == '1' ? 'selected' : '' ?>>Verificado</option>
-                                    <option value="0" <?= $file->status == '0' ? 'selected' : '' ?>>Inválido</option>
-                                </select>
-                            </div>
+                    <?php if(in_array($this->session->userdata('idrol'), [1, 2])): ?>
+                        <form method="post" action="<?php echo base_url('finanza/show_update/') . $file->id; ?>">
+                            <div class="row container g-3">
+                                <div class="col-md-6">
+                                    <label for="status" class="form-label">Actualizar Estado:</label>
+                                    <select name="status" id="status" class="form-select" required>
+                                        <option value="" disabled>Seleccionar</option>
+                                        <option value="2" <?= $file->status == '2' ? 'selected' : '' ?>>Pendiente</option>
+                                        <option value="1" <?= $file->status == '1' ? 'selected' : '' ?>>Verificado</option>
+                                        <option value="0" <?= $file->status == '0' ? 'selected' : '' ?>>Inválido</option>
+                                    </select>
+                                </div>
 
-                            <div class="col-md-6">
-                                <label for="comment" class="form-label">Comentarios:</label>
-                                <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Añade un comentario si es necesario..."></textarea>
-                            </div>
+                                <div class="col-md-6">
+                                    <label for="comment" class="form-label">Comentarios:</label>
+                                    <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Añade un comentario si es necesario..."></textarea>
+                                </div>
 
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-modal d-flex align-items-center ms-auto">
-                                    <i class='bx bxs-send fs-5 me-1'></i> Guardar Cambios
-                                </button>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-modal d-flex align-items-center ms-auto">
+                                        <i class='bx bxs-send fs-5 me-1'></i> Guardar Cambios
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </form> 
+                        </form>
+                    <?php endif; ?> 
                 </div>           
             </div>
 
