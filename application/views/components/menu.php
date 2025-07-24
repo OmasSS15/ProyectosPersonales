@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </a>
                             </li>
                             <li class="sidebar-item mb-2">
-                                <a href="#" class="sidebar-link">
+                                <a href="<?php echo base_url('clasificacion'); ?>" class="sidebar-link">
                                    Clasificación
                                 </a>
                             </li>

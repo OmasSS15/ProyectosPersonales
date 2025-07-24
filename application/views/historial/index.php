@@ -151,7 +151,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <form class="row g-3" method="GET" action="<?php echo base_url('historial') ?>">
                         <div class="col-md-6">
                             <label for="clasificacion_file" class="form-label">Clasificación</label>
-                            <select class="form-select" id="clasificacion" name="clasificacion_id">
+                            <select class="form-select" id="select_modal" name="clasificacion_id">
                                 <option value="" selected disabled>Seleccionar</option>
                                 <?php foreach ($clasificaciones as $clasificacion): ?>
                                     <!-- ?= ... es la abreviatura de php echo ...  -->

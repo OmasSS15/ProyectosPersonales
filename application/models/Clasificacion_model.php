@@ -23,5 +23,24 @@ class Clasificacion_model extends CI_Model {
         return $query->result();
     }
 	
+    public function get_classification_by_id($id) {
+        // PRIMERO SE COLOCA LA TABLA Y LUEGO EL ID
+        $query = $this->db->get_where('classification', ['id' => $id]);
+        return $query->row(); // SE RETORNA A LA FILA QUE SE VA A MOSTRAR
+    }
+	
+    public function save_classification($classificationData){
+        //NOS PERMITE AÑADIR NUEVOS REGISTROS
+        $this->db->insert('classification', $classificationData);
+    }
+
+    public function update_classification($id, $classificationData){
+        // PARA ACTUALIZAR LOS REGISTROS
+        $this->db->update('classification', $classificationData, ['id' => $id]);
+    }
+
+    public function delete_classification($id){
+        $this->db->delete('classification', ['id' => $id]);
+    }
 	
 }

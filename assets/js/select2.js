@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#clasificacion").select2({
+    $("#select_modal").select2({
         dropdownParent: $('#modal_filter'),
         language: {
             noResults: function(){

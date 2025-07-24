@@ -5,6 +5,7 @@ let dataTableUsers;
 let dataTableHistorial;
 let dataTableSucursal;
 let dataTableEstado;
+let dataTableRol;
 // Inicializar datatable en false
 let dataTableIsInitialized = false;
 
@@ -64,6 +65,11 @@ const dataTableOptions5 = getDataTableOptions({
     searchable: [0, 3, 4]
 });
 
+const dataTableOptions6 = getDataTableOptions({
+    orderable: [1, 2, ],
+    searchable: [0, 2]
+});
+
 const initDataTable = async () => { 
     if (dataTableIsInitialized) {
         dataTableFiles.destroy();
@@ -72,6 +78,7 @@ const initDataTable = async () => {
         dataTableHistorial.destroy();
         dataTableSucursal.destroy();
         dataTableEstado.destroy();
+        dataTableRol.destroy();
     }
 
     // Mostrar datos de JSONPlaceholder
@@ -83,6 +90,7 @@ const initDataTable = async () => {
     dataTableHistorial = $("#datatable_historial").DataTable(dataTableOptions2);
     dataTableSucursal = $("#datatable_sucursales").DataTable(dataTableOptions4);
     dataTableEstado = $("#datatable_estados").DataTable(dataTableOptions5);
+    dataTableRol = $("#datatable_rol").DataTable(dataTableOptions6);
     
     // Inicializar datatable en true
     dataTableIsInitialized = true;
