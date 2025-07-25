@@ -14,18 +14,31 @@ class Archivero extends MY_Controller {
 
 	public function index()
 	{
-		$idclassification = $this->input->get('clasificacion_id');
-		$idsucursal = $this->input->get('sucursal_id');
-		$start_date = $this->input->get('start_date');
-		$end_date = $this->input->get('end_date');
+		//Filtros
+		$idclassification = $this->input->get('clasificacion_id'); // Por Clasificacion
+		$idsucursal = $this->input->get('sucursal_id'); // Por Sucursal (Solo el Admin)
+		$start_date = $this->input->get('start_date'); // Fecha de inicio
+		$end_date = $this->input->get('end_date'); // Ultima fecha
+
+		// Sucursal con respecto al Usuario
+		$idrol_user = $this->session->userdata('idrol');
+    	$idsucursal_user = $this->session->userdata('idsucursal');
+
+		// DATATABLE JS ID
+		if($idrol_user == 1){
+			$datatable = 'datatable_files';
+		} else {
+			$datatable = 'datatable_files2';
+		};
 
 		$mainData = [
 			'title' => 'Archivero',
 			'content' => 'archivero/index',
 			// 'files' => $this->archivero_model->get_all_files(),
-			'files' => $this->archivero_model->get_files_filters($idclassification, $idsucursal, $start_date, $end_date),
+			'files' => $this->archivero_model->get_files_filters($idclassification, $idsucursal, $start_date, $end_date, $idrol_user, $idsucursal_user),
 			'clasificaciones' => $this->clasificacion_model->get_classification_filter(), //Filtro
 			'sucursales' => $this->sucursal_model->get_all_sucursal(), //Filtro
+			'datatable' => $datatable,
 
 			// Para mostra la opción seleccionada
 			'idclassification' => $idclassification,

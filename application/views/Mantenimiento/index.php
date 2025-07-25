@@ -44,13 +44,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="datatable_files2" class="table table-striped table-hover text-center">
+                            <table id="<?php echo $datatable; ?>" class="table table-striped table-hover text-center">
                                 <thead>
                                     <tr>
                                         <th class="text-center" scope="col">#</th>
                                         <th class="text-center" scope="col">Asunto</th>
                                         <th class="text-center" scope="col">Empleado</th>
-                                        <th class="text-center" scope="col">Sucursal</th>
+                                        <?php if($this->session->userdata('idrol') == 1): ?>
+                                            <th class="text-center" scope="col" >Sucursal</th>
+                                        <?php endif; ?>
                                         <th class="text-center" scope="col">Fecha de Envío</th>
                                         <th class="text-center" scope="col">Hora de Envío</th>
                                         <th class="text-center" scope="col">Estado</th>
@@ -63,7 +65,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <th class="text-center" scope="row"><?php echo $file->id; ?></th>
                                             <td class="text-center"><?php echo $file->name; ?></td>
                                             <td class="text-center"><?php echo $file->user_name . ' ' . $file->user_lastname; ?></td>
-                                            <td class="text-center"><?php echo $file->sucursal; ?></td>
+                                             <?php if($this->session->userdata('idrol') == 1): ?>
+                                                <td class="text-center"><?php echo $file->sucursal; ?></td>
+                                            <?php endif; ?>
                                             <?php $datetime = new DateTime($file->created); ?>
                                             <td class="text-center"><?= $datetime->format('Y/m/d') ?></td>
                                             <td class="text-center"><?= $datetime->format('h:i A') ?></td>
@@ -153,19 +157,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                 <div class="modal-body">
                     <form class="row g-3" method="GET" action="<?php echo base_url('mantenimiento') ?>">
-                        <div class="col-md-6">
-                            <label for="sucursal_file" class="form-label">Sucursal</label>
-                            <select class="form-select" id="sucursal" name="sucursal_id">
-                                <option value="" selected disabled>Seleccionar</option>
-                                <?php foreach ($sucursales as $sucursal): ?>
-                                    <!-- ?= ... es la abreviatura de php echo ...  -->
-                                    <option value="<?= $sucursal->id ?>"
-                                        <?= ($idsucursal == $sucursal->id) ? 'selected' : '' ?>>
-                                        <?= $sucursal->sucursal ?>
-                                    </option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
+                        
                         <div class="col-md-6">
                             <label for="start_date" class="form-label">Desde</label>
                             <input type="text" class="form-control" id="start_date" name="start_date" value="<?= isset($start_date) ? $start_date : '' ?>" placeholder="Seleccionar fecha">
@@ -174,6 +166,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="end_date" class="form-label">Hasta</label>
                             <input type="text" class="form-control" id="end_date" name="end_date" value="<?= isset($end_date) ? $end_date : '' ?>" placeholder="Seleccionar fecha">
                         </div>
+
+                        <?php if($this->session->userdata('idrol') == 1): ?>
+                            <div class="col-md-6">
+                                <label for="sucursal_file" class="form-label">Sucursal</label>
+                                <select class="form-select" id="sucursal" name="sucursal_id">
+                                    <option value="" selected disabled>Seleccionar</option>
+                                    <?php foreach ($sucursales as $sucursal): ?>
+                                        <!-- ?= ... es la abreviatura de php echo ...  -->
+                                        <option value="<?= $sucursal->id ?>"
+                                            <?= ($idsucursal == $sucursal->id) ? 'selected' : '' ?>>
+                                            <?= $sucursal->sucursal ?>
+                                        </option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                        <?php endif; ?>
+
                         <div class="modal-footer">
                             <a href="<?php echo base_url('mantenimiento') ?>" class="btn btn btn-outline-modal d-flex align-items-center">
                                 <i class='bx bxs-eraser fs-5 me-1'></i>Limpiar

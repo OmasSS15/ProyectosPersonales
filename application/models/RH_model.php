@@ -9,7 +9,7 @@ class RH_model extends CI_Model {
         $this->load->database();
     }
 
-    public function get_all_files($idsucursal, $start_date, $end_date){
+    public function get_all_files($idsucursal, $start_date, $end_date, $idrol_user, $idsucursal_user){
         $this->db->select(
             'files.*,
             users.name as user_name,
@@ -22,6 +22,11 @@ class RH_model extends CI_Model {
         $this->db->join('classification', 'classification.id = files.idclassification');
         $this->db->join('sucursales', 'sucursales.id = files.idsucursal');
         $this->db->where('idclassification', 4);
+        // Filtrar por Sucursal con respecto al rol
+        if ($idrol_user !=1){
+            $this->db->where('files.idsucursal', $idsucursal_user);
+        }
+        // Filtros
         if ($idsucursal) {
             $this->db->where('files.idsucursal', $idsucursal);
         }

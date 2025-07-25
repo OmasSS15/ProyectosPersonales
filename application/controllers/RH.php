@@ -13,15 +13,28 @@ class RH extends MY_Controller {
 
 	public function index()
 	{
+		//Filtros
 		$idsucursal = $this->input->get('sucursal_id');
 		$start_date = $this->input->get('start_date');
 		$end_date = $this->input->get('end_date');
 
+		// Sucursal con respecto al Usuario
+		$idrol_user = $this->session->userdata('idrol');
+    	$idsucursal_user = $this->session->userdata('idsucursal');
+
+		// DATATABLE JS ID
+		if($idrol_user == 1){
+			$datatable = 'datatable_files2';
+		} else {
+			$datatable = 'datatable_files3';
+		};
+
 		$mainData = [
 			'title' => 'Recursos Humanos',
 			'content' => 'rh/index',
-			'files' => $this->rh_model->get_all_files($idsucursal, $start_date, $end_date),
+			'files' => $this->rh_model->get_all_files($idsucursal, $start_date, $end_date, $idrol_user, $idsucursal_user),
 			'sucursales' => $this->sucursal_model->get_all_sucursal(), //Filtro
+			'datatable' => $datatable,
 
 			// Para mostra la opción seleccionada
 			'idsucursal' => $idsucursal,

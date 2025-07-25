@@ -44,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="datatable_historial" class="table table-striped table-hover text-center">
+                            <table id="datatable_files3" class="table table-striped table-hover text-center">
                                 <thead>
                                     <tr>
                                         <th class="text-center" scope="col">#</th>
@@ -149,6 +149,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                 <div class="modal-body">
                     <form class="row g-3" method="GET" action="<?php echo base_url('historial') ?>">
+                    
+                        <div class="col-md-6">
+                            <label for="start_date" class="form-label">Desde</label>
+                            <input type="text" class="form-control" id="start_date" name="start_date" value="<?= isset($start_date) ? $start_date : '' ?>" placeholder="Seleccionar fecha">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="end_date" class="form-label">Hasta</label>
+                            <input type="text" class="form-control" id="end_date" name="end_date" value="<?= isset($end_date) ? $end_date : '' ?>" placeholder="Seleccionar fecha">
+                        </div>
+
                         <div class="col-md-6">
                             <label for="clasificacion_file" class="form-label">Clasificación</label>
                             <select class="form-select" id="select_modal" name="clasificacion_id">
@@ -162,14 +172,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php endforeach ?>
                             </select>
                         </div>
-                        <div class="col-md-6">
-                            <label for="start_date" class="form-label">Desde</label>
-                            <input type="text" class="form-control" id="start_date" name="start_date" value="<?= isset($start_date) ? $start_date : '' ?>" placeholder="Seleccionar fecha">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="end_date" class="form-label">Hasta</label>
-                            <input type="text" class="form-control" id="end_date" name="end_date" value="<?= isset($end_date) ? $end_date : '' ?>" placeholder="Seleccionar fecha">
-                        </div>
+                        
                         <div class="modal-footer">
                             <a href="<?php echo base_url('historial') ?>" class="btn btn btn-outline-modal d-flex align-items-center">
                                 <i class='bx bxs-eraser fs-5 me-1'></i>Limpiar

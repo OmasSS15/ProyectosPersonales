@@ -66,7 +66,7 @@ const dataTableOptions5 = getDataTableOptions({
 });
 
 const dataTableOptions6 = getDataTableOptions({
-    orderable: [1, 2, ],
+    orderable: [1, 2],
     searchable: [0, 2]
 });
 
@@ -86,8 +86,8 @@ const initDataTable = async () => {
     
     dataTableFiles = $("#datatable_files").DataTable(dataTableOptions);
     dataTableFiles2 = $("#datatable_files2").DataTable(dataTableOptions3);
+    dataTableHistorial = $("#datatable_files3").DataTable(dataTableOptions2);
     dataTableUsers = $("#datatable_users").DataTable(dataTableOptions);
-    dataTableHistorial = $("#datatable_historial").DataTable(dataTableOptions2);
     dataTableSucursal = $("#datatable_sucursales").DataTable(dataTableOptions4);
     dataTableEstado = $("#datatable_estados").DataTable(dataTableOptions5);
     dataTableRol = $("#datatable_rol").DataTable(dataTableOptions6);
