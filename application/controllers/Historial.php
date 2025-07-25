@@ -18,12 +18,15 @@ class Historial extends MY_Controller {
 		$start_date = $this->input->get('start_date');
 		$end_date = $this->input->get('end_date');
 
+		// Todas las clasificaciones para Admin
+		$idrol_user = $this->session->userdata('idrol');
+
 		$mainData = [
 			'title' => 'Historial',
 			'content' => 'historial/index',
 			// 'files' => $this->historial_model->get_all_files(),
 			'files' => $this->historial_model->get_files_by_user($user_id, $idclassification, $start_date, $end_date),
-			'clasificaciones' => $this->clasificacion_model->get_classification_filter(), //Filtro
+			'clasificaciones' => $this->clasificacion_model->get_classification_filter_rol($idrol_user), //Filtro
 
 			// Para mostra la opción seleccionada
 			'idclassification' => $idclassification,
@@ -55,10 +58,13 @@ class Historial extends MY_Controller {
 
 	public function upload()
 	{
+		// Todas las clasificaciones para Admin
+		$idrol_user = $this->session->userdata('idrol');
+
 		$mainData = [
 			'title' => 'Nuevo Archivo',
 			'content' => 'historial/upload',
-			'clasificaciones' => $this->clasificacion_model->get_classification_filter()
+			'clasificaciones' => $this->clasificacion_model->get_classification_filter_rol($idrol_user), //Filtro
  		];
 
 		$this->load->view('templates/main', $mainData);
@@ -137,11 +143,15 @@ class Historial extends MY_Controller {
 		// 	show_404();
 		// }
 
+		// Todas las clasificaciones para Admin
+		$idrol_user = $this->session->userdata('idrol');
+
 		$mainData = [
 			'title' => 'Modificar Datos del Documento',
 			'content' => 'historial/edit',
 			'file' => $this->historial_model->get_file_by_id($id),
-			'clasificaciones' => $this->clasificacion_model->get_classification_filter()
+			'clasificaciones' => $this->clasificacion_model->get_classification_filter_rol($idrol_user), //Filtro
+
  		];
 
 		$this->load->view('templates/main', $mainData);

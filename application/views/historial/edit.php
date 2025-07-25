@@ -42,6 +42,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <label for="clasificacion_file" class="form-label">Clasificación</label>
                         <select class="form-select" id="clasificacion_file" name="clasificacion_id" required>
                             <option value="" selected disabled>Seleccionar</option>
+                            <?php if ($this->session->userdata('idrol') == 4): ?>
+                                <option value="4"
+                                    <?= $file->idclassification == 4 ? 'selected' : '' ?>>
+                                    Recursos Humanos
+                                </option>
+                            <?php endif ?>
+                            <?php if ($this->session->userdata('idrol') == 5): ?>
+                                <option value="5"
+                                    <?= $file->idclassification == 5 ? 'selected' : '' ?>>
+                                    Contables y financieros
+                                </option>
+                            <?php endif ?>
+                            <?php if ($this->session->userdata('idrol') == 6): ?>
+                                <option value="6"
+                                    <?= $file->idclassification == 6 ? 'selected' : '' ?>>
+                                    Mantenimiento
+                                </option>
+                            <?php endif ?>
                             <?php foreach ($clasificaciones as $clasificacion): ?>
                                 <!-- ?= ... es la abreviatura de php echo ...  -->
                                 <option value="<?= $clasificacion->id ?>"

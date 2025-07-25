@@ -36,7 +36,7 @@ class Archivero extends MY_Controller {
 			'content' => 'archivero/index',
 			// 'files' => $this->archivero_model->get_all_files(),
 			'files' => $this->archivero_model->get_files_filters($idclassification, $idsucursal, $start_date, $end_date, $idrol_user, $idsucursal_user),
-			'clasificaciones' => $this->clasificacion_model->get_classification_filter(), //Filtro
+			'clasificaciones' => $this->clasificacion_model->get_classification_filter_files(), //Filtro
 			'sucursales' => $this->sucursal_model->get_all_sucursal(), //Filtro
 			'datatable' => $datatable,
 
@@ -94,7 +94,7 @@ class Archivero extends MY_Controller {
 		$mainData = [
 			'title' => 'Nuevo Archivo',
 			'content' => 'archivero/upload',
-			'clasificaciones' => $this->clasificacion_model->get_classification_filter(),
+			'clasificaciones' => $this->clasificacion_model->get_classification_filter_files(),
 			'sucursales' => $this->sucursal_model->get_all_sucursal()
  		];
 
@@ -178,7 +178,7 @@ class Archivero extends MY_Controller {
 			'title' => 'Modificar Datos del Documento',
 			'content' => 'archivero/edit',
 			'file' => $this->archivero_model->get_file_by_id($id),
-			'clasificaciones' => $this->clasificacion_model->get_classification_filter(),
+			'clasificaciones' => $this->clasificacion_model->get_classification_filter_files(),
 			'sucursales' => $this->sucursal_model->get_all_sucursal()
  		];
 

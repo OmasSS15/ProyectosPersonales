@@ -16,8 +16,18 @@ class Clasificacion_model extends CI_Model {
         return $query->result();
     }
 
-    public function get_classification_filter() {
+    public function get_classification_filter_files() {
         $this->db->where('status', 1); // Solo los activos se muestran
+        $query = $this->db->get('classification');
+        // LOS DATOS SE RETORNAN EN FORMA DE OBJETO
+        return $query->result();
+    }
+
+    public function get_classification_filter_rol($idrol_user) {
+        // Filtrar Clasificaciones, excepto el Admin
+        if (!in_array($idrol_user, [1, 2])){
+            $this->db->where('status', 1); // Solo los activos se muestran
+        }
         $query = $this->db->get('classification');
         // LOS DATOS SE RETORNAN EN FORMA DE OBJETO
         return $query->result();
