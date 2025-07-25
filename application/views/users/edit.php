@@ -71,19 +71,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </select>
                     </div>
 
-                    <div class="col-md-6">
-                        <label for="sucursal_file" class="form-label">Sucursal</label>
-                        <select class="form-select" id="sucursal_file" name="sucursal_id" required>
-                            <option value="" selected disabled>Seleccionar</option>
-                            <?php foreach ($sucursales as $sucursal): ?>
-                                <!-- ?= ... es la abreviatura de php echo ...  -->
-                                <option value="<?= $sucursal->id ?>"
-                                    <?= $user->idsucursal == $sucursal->id ? 'selected' : '' ?>>
-                                    <?= $sucursal->sucursal ?>
-                                </option>
-                            <?php endforeach ?>
-                        </select>
-                    </div>
+                    <?php if($this->session->userdata('idrol') == 1): ?>
+                        <div class="col-md-6">
+                            <label for="sucursal_file" class="form-label">Sucursal</label>
+                            <select class="form-select" id="sucursal_file" name="sucursal_id" required>
+                                <option value="" selected disabled>Seleccionar</option>
+                                <?php foreach ($sucursales as $sucursal): ?>
+                                    <!-- ?= ... es la abreviatura de php echo ...  -->
+                                    <option value="<?= $sucursal->id ?>"
+                                        <?= $user->idsucursal == $sucursal->id ? 'selected' : '' ?>>
+                                        <?= $sucursal->sucursal ?>
+                                    </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    <?php endif; ?>
 
                     <div class="col-12">
                         <button type="submit" class="btn btn-modal d-flex align-items-center ms-auto">

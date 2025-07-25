@@ -9,7 +9,7 @@ class Users_model extends CI_Model {
         $this->load->database();
     }
 
-    public function get_users_filters($idsucursal, $idrol, $start_date, $end_date){
+    public function get_users_filters($idsucursal, $idrol, $start_date, $end_date, $idrol_user, $idsucursal_user){
         $this->db->select(
             'users.*, 
             users.name as user_name, 
@@ -20,6 +20,11 @@ class Users_model extends CI_Model {
         $this->db->from('users');
         $this->db->join('roles', 'roles.id = users.idrol');
         $this->db->join('sucursales', 'sucursales.id = users.idsucursal');
+        // Filtrar por Sucursal con respecto al rol
+        if ($idrol_user !=1){
+            $this->db->where('users.idsucursal', $idsucursal_user);
+        }
+        // Filtros
         if ($idsucursal) {
             $this->db->where('idsucursal', $idsucursal);
         }

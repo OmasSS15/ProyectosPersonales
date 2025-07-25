@@ -3,6 +3,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Mantenimiento extends MY_Controller {
+	// Retringir el acceso, excepto:
+	protected $allowed_roles = [1, 2, 6];
 
 	public function __construct(){	
 		parent::__construct();

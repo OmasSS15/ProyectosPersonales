@@ -4,6 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Finanza extends MY_Controller {
 
+	// Retringir el acceso, excepto:
+	protected $allowed_roles = [1, 2, 5];
+
 	public function __construct(){	
 		parent::__construct();
 		$this->load->model('finanza_model');

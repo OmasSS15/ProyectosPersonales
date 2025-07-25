@@ -15,6 +15,16 @@ class Rol_model extends CI_Model {
         // LOS DATOS SE RETORNAN EN FORMA DE OBJETO
         return $query->result();
     }
+
+    public function get_rol_filter($idrol_user) {
+        // Filtrar Clasificaciones, excepto el Admin
+        if (!in_array($idrol_user, [1])){
+            $this->db->where('visible', 1); // Solo los activos se muestran
+        }
+        $query = $this->db->get('roles');
+        // LOS DATOS SE RETORNAN EN FORMA DE OBJETO
+        return $query->result();
+    }
 	
 	public function get_rol_by_id($id) {
         // PRIMERO SE COLOCA LA TABLA Y LUEGO EL ID

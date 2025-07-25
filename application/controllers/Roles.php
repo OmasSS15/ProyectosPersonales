@@ -4,6 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Roles extends MY_Controller {
 
+	// Retringir el acceso, excepto:
+	protected $allowed_roles = [1];
+	
 	public function __construct(){	
 		parent::__construct();
 		$this->load->model('rol_model');

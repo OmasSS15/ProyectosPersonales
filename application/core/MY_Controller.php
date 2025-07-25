@@ -17,7 +17,7 @@ class MY_Controller extends CI_Controller {
 
     protected function check_access() {
         if (!empty($this->allowed_roles)) {
-            $user_role = $this->session->userdata('idrole');
+            $user_role = $this->session->userdata('idrol');
             if (!in_array($user_role, $this->allowed_roles)) {
                 // show_error('No tienes permiso para acceder.', 403);
                 redirect('home');

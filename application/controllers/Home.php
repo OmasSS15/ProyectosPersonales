@@ -7,6 +7,7 @@ class Home extends MY_Controller {
 	public function index()
 	{
 		echo "ID de usuario en sesión: " . $this->session->userdata('user_id');
+		echo "Rol de usuario en sesión: " . $this->session->userdata('idrol');
 		
 		$mainData = [
 			'title' => 'Inicio',

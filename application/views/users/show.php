@@ -71,24 +71,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </tr>
                         </tbody>
                     </table>
-                    <form method="post" action="<?php echo base_url('users/show_update/') . $user->id; ?>">
-                        <div class="row container g-3">
-                            <div class="col-md-6">
-                                <label for="status" class="form-label">Actualizar Estado:</label>
-                                <select name="status" id="status" class="form-select" required>
-                                    <option value="" disabled>Seleccionar</option>
-                                    <option value="1" <?= $user->status == '1' ? 'selected' : '' ?>>Activo</option>
-                                    <option value="0" <?= $user->status == '0' ? 'selected' : '' ?>>Inactivo</option>
-                                </select>
-                            </div>
+                    <?php if($user->id != 1 || $this->session->userdata('user_id') == 1): ?>
+                        <form method="post" action="<?php echo base_url('users/show_update/') . $user->id; ?>">
+                            <div class="row container g-3">
+                                <div class="col-md-6">
+                                    <label for="status" class="form-label">Actualizar Estado:</label>
+                                    <select name="status" id="status" class="form-select" required>
+                                        <option value="" disabled>Seleccionar</option>
+                                        <option value="1" <?= $user->status == '1' ? 'selected' : '' ?>>Activo</option>
+                                        <option value="0" <?= $user->status == '0' ? 'selected' : '' ?>>Inactivo</option>
+                                    </select>
+                                </div>
 
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-modal d-flex align-items-center ms-auto">
-                                    <i class='bx bxs-send fs-5 me-1'></i> Guardar Cambios
-                                </button>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-modal d-flex align-items-center ms-auto">
+                                        <i class='bx bxs-send fs-5 me-1'></i> Guardar Cambios
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </form> 
+                        </form> 
+                    <?php endif; ?>
                 </div>           
             </div>
 

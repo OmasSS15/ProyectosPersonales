@@ -4,6 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users extends MY_Controller {
 
+	// Retringir el acceso, excepto:
+	protected $allowed_roles = [1, 2];
+
 	public function __construct(){	
 		parent::__construct();
 		$this->load->model('users_model');
@@ -14,17 +17,31 @@ class Users extends MY_Controller {
 
     public function index()
 	{
+		// Filtros
 		$idsucursal = $this->input->get('sucursal_id');
 		$idrol = $this->input->get('rol_id');
 		$start_date = $this->input->get('start_date');
 		$end_date = $this->input->get('end_date');
 
+		// Todas las roles para Admin
+		$idrol_user = $this->session->userdata('idrol');
+		$idsucursal_user = $this->session->userdata('idsucursal');
+
+		// DATATABLE JS ID
+		if($idrol_user == 1){
+			$datatable = 'datatable_users';
+		} else {
+			$datatable = 'datatable_files2';
+		};
+
+
 		$mainData = [
 			'title' => 'Catálogo de Usuarios',
 			'content' => 'users/index',
-			'users' => $this->users_model->get_users_filters($idsucursal, $idrol, $start_date, $end_date),
+			'users' => $this->users_model->get_users_filters($idsucursal, $idrol, $start_date, $end_date, $idrol_user, $idsucursal_user),
 			'sucursales' => $this->sucursal_model->get_all_sucursal(),
-			'roles' => $this->rol_model->get_all_rol(),
+			'roles' => $this->rol_model->get_rol_filter($idrol_user), //Filtro
+			'datatable' => $datatable,
 
 			// Para mostra la opción seleccionada
 			'idsucursal' => $idsucursal,
@@ -75,10 +92,13 @@ class Users extends MY_Controller {
 
     public function register()
 	{
+		// Todas las roles para Admin
+		$idrol_user = $this->session->userdata('idrol');
+
 		$mainData = [
 			'title' => 'Nuevo Usuario',
 			'content' => 'users/register',
-            'roles' => $this->rol_model->get_all_rol(),
+            'roles' => $this->rol_model->get_rol_filter($idrol_user), //Filtro
 			'sucursales' => $this->sucursal_model->get_all_sucursal()
  		];
 
@@ -123,11 +143,14 @@ class Users extends MY_Controller {
 		// 	show_404();
 		// }
 
+		// Todas las roles para Admin
+		$idrol_user = $this->session->userdata('idrol');
+
 		$mainData = [
 			'title' => 'Modificar Datos del Usuario',
 			'content' => 'users/edit',
 			'user' => $this->users_model->get_user_by_id($id),
-			'roles' => $this->rol_model->get_all_rol(),
+			'roles' => $this->rol_model->get_rol_filter($idrol_user), //Filtro
 			'sucursales' => $this->sucursal_model->get_all_sucursal()
  		];
 
