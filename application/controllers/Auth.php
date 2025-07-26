@@ -42,6 +42,13 @@ class Auth extends CI_Controller {
 
 		$user = $this->users_model->get_user_by_email($this->input->post('email'));
 
+		if ($user->status == 0) {
+            $this->session->set_flashdata('errors', 'Acceso Denegado. Este usuario está dado de baja.');
+            redirect('auth');
+
+			return;
+        }
+
 		// SI EL USUARIO ES NULO Y LA CONTRASEÑA ENCRIPTADA ES IGUAL A LA ENVIADA EN EL LOGIN
 		if($user != null && password_verify($this->input->post('password'), $user->password)){
 			// LOGIN CORRECTO

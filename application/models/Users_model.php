@@ -60,6 +60,7 @@ class Users_model extends CI_Model {
     }
 
     public function get_user_by_email($email){
+        $this->db->where('status', 1);
         $query = $this->db->get_where('users', ['email' => $email]);
         return $query->row();
     }

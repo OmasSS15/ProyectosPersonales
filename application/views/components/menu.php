@@ -23,14 +23,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span>Archivero</span>
                         </a>
                     </li>
-                    <?php if(in_array($this->session->userdata('idrol'), [1, 2])): ?>
+                    <?php if(in_array($this->session->userdata('idrol'), [1])): ?>
                         <li class="sidebar-item px-2 mb-2">
                             <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
                                 <i class='bx bx-list-ul'></i>
                                 <span>Catálogos</span>
                             </a>
                             <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="sidebar">
-                                <?php if(in_array($this->session->userdata('idrol'), [1, 2])): ?>
+                                <?php if(in_array($this->session->userdata('idrol'), [1])): ?>
                                     <li class="sidebar-item mb-2">
                                         <a href="<?php echo base_url('users'); ?>" class="sidebar-link">
                                         Usuarios 
