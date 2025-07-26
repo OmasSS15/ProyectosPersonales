@@ -23,6 +23,7 @@ class Auth extends CI_Controller {
 		$mainData = [
 			
 			'title' => 'Iniciar Sesión',
+			'input_value' => $this->session->flashdata('input_value')
  		];
 
 		$this->load->view('auth/login', $mainData);
@@ -32,6 +33,7 @@ class Auth extends CI_Controller {
 
 	public function login(){
 
+		// Login Activo
 		if($this->session->userdata('logged_in')){
 			// OTRA FORMA DE MOSTRAR UN MENSAJE DE ERROR Y PROTEGER LAS RUTAS
 			//show_error('Ya iniciaste Sesión');
@@ -40,10 +42,31 @@ class Auth extends CI_Controller {
 			return;
 		}
 
+		// Validaciones
+		$this->form_validation->set_rules('email', 'EMAIL', 'required|valid_email');
+		$this->form_validation->set_rules('password', 'PASSWORD', 'required');
+		
+		$this->form_validation->set_message('required', 'El campo es obligatorio.');
+		$this->form_validation->set_message('valid_email', 'No es un correo válido.');
+		// $this->form_validation->set_message('matches', 'El campo %s no coincide con el campo %s.');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('form_errors', [
+				'email'    => form_error('email'),
+				'password' => form_error('password')
+			]);
+			$this->session->set_flashdata('input_value', [
+				'email' => $this->input->post('email')
+			]);
+			redirect('auth');
+			return;
+		}
+
+		// Verificar Usuario
 		$user = $this->users_model->get_user_by_email($this->input->post('email'));
 
 		if ($user->status == 0) {
-            $this->session->set_flashdata('errors', 'Acceso Denegado. Este usuario está dado de baja.');
+            $this->session->set_flashdata('errors', 'Acceso Denegado');
             redirect('auth');
 
 			return;

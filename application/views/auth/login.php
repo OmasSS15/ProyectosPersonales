@@ -40,6 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class='wave -three'></div>
     </div>
     <?php $errors = $this->session->flashdata('errors'); ?>
+    <?php $form_errors = $this->session->flashdata('form_errors'); ?>
     <section class="vh-100 position-relative" style="z-index: 1;">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -69,14 +70,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Inicia sesión para continuar</h5>
 
-                                        <div data-mdb-input-init class="form-outline mb-4">
-                                            <input type="email" id="email" name="email" class="form-control form-control-lg" />
-                                            <label class="form-label" for="email">Dirección de correo electrónico</label>
+                                        <div class="mb-4">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <input type="text" id="email" name="email" class="form-control form-control-lg" value="<?= !empty($input_value['email']) ? $input_value['email'] : ''; ?>"/>
+                                                <label class="form-label" for="email">Dirección de correo electrónico</label>
+                                            </div>
+                                            <?php if (!empty($form_errors['email'])): ?>
+                                                <small class="form-text text-danger d-flex mb-0 pb-0">
+                                                    <i class='bx bx-info-circle fs-5 me-1'></i>
+                                                    <?php echo $form_errors['email']; ?>
+                                                </small>
+                                            <?php endif; ?>
                                         </div>
 
-                                        <div data-mdb-input-init class="form-outline mb-4">
-                                            <input type="password" id="password" name="password" class="form-control form-control-lg" />
-                                            <label class="form-label" for="password">Contraseña</label>
+                                        <div class="mb-4">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <input type="password" id="password" name="password" class="form-control form-control-lg" />
+                                                <label class="form-label" for="password">Contraseña</label>
+                                            </div>
+                                            <?php if (!empty($form_errors['password'])): ?>
+                                                <small class="form-text text-danger d-flex mb-0 pb-0">
+                                                    <i class='bx bx-info-circle fs-5 me-1'></i>
+                                                    <?php echo $form_errors['password']; ?>
+                                                </small>
+                                            <?php endif; ?>
                                         </div>
 
                                         <div class="pt-1 mb-4">
